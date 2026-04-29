@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Integrated Management System Manual — YPP_QMP-001</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+:root{
+  --navy-deep:#0F1720;--navy:#1A2332;
+  --teal:#2D8B8B;--teal-lt:#3AABAB;--teal-dim:#20616B;
+  --teal-pale:#EBF4F4;--teal-rule:#B0D4D4;
+  --amber:#C08010;--amber-bg:#FFF8EE;--amber-bd:#E8C870;
+  --danger:#B83030;--danger-bg:#FEF0EF;--danger-bd:#E8B0AD;
+  --green:#1A7040;--green-bg:#EEF7F2;--green-bd:#A0C8B4;
+  --ice:#F4F8FB;--ice-mid:#E8F0F5;
+  --rule:#D8E6EE;--rule-lt:#EBF2F7;
+  --ink:#1A2332;--mid:#3A5060;--lt:#6B7F90;--white:#FFFFFF;
+  --font-d:'Barlow Condensed',-apple-system,sans-serif;
+  --font-b:'Inter',-apple-system,sans-serif;
+  --font-m:'JetBrains Mono',monospace;
+  --r:4px;--r2:6px;
+
+  /* ── ISO Domain Colors (v19.0) ── */
+  --iso-quality:#2563EB;--iso-quality-lt:#DBEAFE;
+  --iso-env:#059669;--iso-env-lt:#D1FAE5;
+  --iso-safety:#EA580C;--iso-safety-lt:#FFF7ED;
+  --iso-energy:#D97706;--iso-energy-lt:#FFFBEB;
+  --iso-food:#16A34A;--iso-food-lt:#F0FDF4;
+  --iso-infosec:#7C3AED;--iso-infosec-lt:#F5F3FF;
+  --iso-medical:#0D9488;--iso-medical-lt:#F0FDFA;
+  --iso-auto:#1E3A8A;--iso-auto-lt:#EFF6FF;
+  --iso-aero:#1E3A5F;--iso-aero-lt:#F8FAFC;
+
+  /* ── Document Lifecycle State Colors ── */
+  --state-draft:#6B7280;--state-draft-bg:#F3F4F6;
+  --state-review:#D97706;--state-review-bg:#FEF3C7;
+  --state-approved:#059669;--state-approved-bg:#D1FAE5;
+  --state-published:#2563EB;--state-published-bg:#DBEAFE;
+  --state-superseded:#EA580C;--state-superseded-bg:#FFF7ED;
+  --state-obsolete:#B91C1C;--state-obsolete-bg:#FEF2F2;
+
+  /* ── RAG Status Colors ── */
+  --rag-red:#DC2626;--rag-red-bg:#FEE2E2;--rag-red-ink:#991B1B;
+  --rag-amber:#D97706;--rag-amber-bg:#FEF3C7;--rag-amber-ink:#92400E;
+  --rag-green:#059669;--rag-green-bg:#D1FAE5;--rag-green-ink:#065F46;
+  --rag-blue:#2563EB;--rag-blue-bg:#DBEAFE;--rag-blue-ink:#1E40AF;
+  --rag-grey:#6B7280;--rag-grey-bg:#F3F4F6;--rag-grey-ink:#374151;
+
+  /* ── Neutral Scale ── */
+  --gray-50:#F9FAFB;--gray-100:#F3F4F6;--gray-200:#E5E7EB;
+  --gray-300:#D1D5DB;--gray-400:#9CA3AF;--gray-500:#6B7280;
+  --gray-600:#4B5563;--gray-700:#374151;--gray-800:#1F2937;
+
+  /* ── Accessibility ── */
+  --focus-ring:#2563EB;--focus-offset:2px;
+}
+
+body{font-family:var(--font-b);background:#E8EEF3;color:var(--ink);line-height:1.55;padding:32px 20px 64px;min-height:100vh}
+
+/* PAGE */
+.document{max-width:960px;margin:0 auto;background:var(--white);box-shadow:0 2px 8px rgba(0,0,0,.08),0 12px 40px rgba(0,0,0,.10);border-radius:0 0 var(--r) var(--r);border-top:4px solid var(--teal)}
+
+/* ── BANNER ── */
+.banner{background:var(--navy-deep);color:#fff;padding:28px 36px 24px;position:relative;overflow:hidden}
+.banner::before{content:'';position:absolute;inset:0;background:repeating-linear-gradient(-55deg,rgba(45,139,139,.04) 0px,rgba(45,139,139,.04) 1px,transparent 1px,transparent 22px);pointer-events:none}
+.banner::after{content:'';position:absolute;right:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--teal),var(--teal-dim))}
+.banner-inner{position:relative;z-index:1}
+.banner-eyebrow{font-family:var(--font-m);font-size:9px;letter-spacing:1.4px;text-transform:uppercase;color:var(--teal-lt);margin-bottom:9px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ey-sep{width:3px;height:3px;border-radius:50%;background:rgba(255,255,255,.25)}
+.banner-title{font-family:var(--font-d);font-size:clamp(24px,3vw,34px);font-weight:800;line-height:1.1;letter-spacing:-.3px;margin-bottom:6px}
+.banner-meta{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px}
+.banner-org{font-size:11px;opacity:.75;font-style:italic}
+.doc-code-badge{font-family:var(--font-m);font-size:11px;font-weight:600;color:var(--amber);background:rgba(0,0,0,.28);padding:5px 13px;border-radius:3px;letter-spacing:.5px}
+/* Banner layout: top-row (logo+eyebrow+badge), title, QR absolute right */
+.banner-header{display:flex;flex-direction:column;gap:6px}
+.banner-top-row{display:flex;align-items:center;gap:14px}
+.banner-logo-left{display:flex;align-items:center;flex-shrink:0}
+.co-logo{max-height:44px;max-width:130px;object-fit:contain;filter:brightness(1.1)}
+.banner-bottom-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.banner-qr-right{position:absolute;right:36px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;align-items:center;gap:4px;z-index:2}
+.banner-qr-img{width:86px;height:86px;border-radius:6px;border:2px solid rgba(255,255,255,.2);background:#fff;padding:3px;object-fit:contain;display:block}
+.banner-qr-lbl{font-family:var(--font-m);font-size:7px;color:rgba(255,255,255,.5);letter-spacing:.5px;text-align:center;word-break:break-all;max-width:86px}
+/* Confidential watermark — fixed overlay, pointer-events:none so it doesn't block clicks */
+.wm{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:9999;overflow:hidden}
+.wm-inner{position:absolute;inset:-50%;display:flex;flex-direction:column;gap:90px;transform:rotate(-35deg)}
+.wm-row{display:flex;gap:80px;white-space:nowrap;padding:0 40px}
+.wm-txt{font-family:Barlow Condensed,Arial,sans-serif;font-size:26px;font-weight:800;letter-spacing:8px;color:rgba(139,0,0,0.045);text-transform:uppercase;user-select:none}
+@media print{.wm-txt{color:rgba(139,0,0,0.055)}}
+
+/* ── CONTROL STRIP ── */
+.ctrl-strip{display:grid;grid-template-columns:repeat(5,1fr);background:var(--teal)}
+.ctrl-cell{padding:9px 14px;border-right:1px solid rgba(255,255,255,.22)}
+.ctrl-cell:last-child{border-right:none}
+.ctrl-lbl{font-family:var(--font-m);font-size:7px;text-transform:uppercase;letter-spacing:.7px;color:rgba(255,255,255,.72);margin-bottom:3px}
+.ctrl-val{font-family:var(--font-b);font-size:10.5px;font-weight:600;color:#fff}
+
+/* ── SECTION ── */
+.section{padding:0}
+.section+.section{border-top:1px solid var(--rule)}
+.sec-hdr{display:flex;align-items:center;gap:12px;padding:17px 36px 14px;background:var(--ice);border-bottom:1px solid var(--rule);user-select:none;position:relative}
+.sec-hdr:hover{background:var(--teal-pale)}
+.sec-hdr.amber{background:#FFFBF5}
+.sec-hdr.amber:hover{background:#FFF5E6}
+.sec-num{width:26px;height:26px;border-radius:50%;flex-shrink:0;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:12px;font-weight:700}
+.sec-num.amber{background:var(--amber)}
+.sec-title{font-family:var(--font-d);font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--navy)}
+.sec-title.amber{color:var(--amber)}
+.sec-tag{margin-left:auto;flex-shrink:0;font-family:var(--font-m);font-size:8px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--teal);background:var(--teal-pale);border:1px solid var(--teal-rule);padding:3px 9px;border-radius:3px}
+.sec-tag.amber{color:var(--amber);background:var(--amber-bg);border-color:var(--amber-bd)}
+.sec-chevron{margin-left:auto;font-size:18px;color:var(--muted);transition:transform .3s ease}
+.sec-hdr .sec-tag+.sec-chevron{margin-left:12px}
+.sec-hdr.collapsed .sec-chevron{transform:rotate(-90deg)}
+.sec-collapse{overflow:hidden;max-height:9999px;transition:max-height .4s ease-in-out,opacity .3s ease}
+.sec-hdr.collapsed+.sec-collapse{max-height:0;opacity:0;padding:0}
+.sec-body{padding:24px 36px}
+
+/* ── TOC TABLE ── */
+.toc-table{width:100%;border-collapse:collapse;font-size:12.5px;border-radius:var(--r);overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.toc-table th{background:var(--navy);color:#fff;font-family:var(--font-d);font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:10px 14px;text-align:left}
+.toc-table td{padding:9px 14px;border-bottom:1px solid var(--rule);transition:background .2s}
+.toc-table tr:nth-child(even) td{background:var(--ice)}
+.toc-table tr:nth-child(odd) td{background:#fff}
+.toc-table tr:hover td{background:var(--teal-pale)}
+.toc-table a{text-decoration:none;color:var(--navy);font-weight:500;display:block;transition:color .15s}
+.toc-table a:hover{color:var(--teal)}
+.toc-table .toc-sec-num{font-family:var(--font-d);font-size:12px;font-weight:700;color:var(--navy);text-align:center;width:40px}
+.toc-table .toc-tag{font-family:var(--font-d);font-size:10.5px;font-weight:700;color:var(--teal);text-align:right;white-space:nowrap}
+@keyframes tocFadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.toc-table tr{animation:tocFadeIn .3s ease forwards;opacity:0}
+.toc-table tr:nth-child(1){animation-delay:.05s}
+.toc-table tr:nth-child(2){animation-delay:.08s}
+.toc-table tr:nth-child(3){animation-delay:.11s}
+.toc-table tr:nth-child(4){animation-delay:.14s}
+.toc-table tr:nth-child(5){animation-delay:.17s}
+.toc-table tr:nth-child(6){animation-delay:.2s}
+.toc-table tr:nth-child(7){animation-delay:.23s}
+.toc-table tr:nth-child(8){animation-delay:.26s}
+.toc-table tr:nth-child(9){animation-delay:.29s}
+.toc-table tr:nth-child(10){animation-delay:.32s}
+.toc-table tr:nth-child(n+11){animation-delay:.35s}
+
+/* ── FLOATING BACK-TO-TOC BUTTON ── */
+.fab-toc{position:fixed;bottom:32px;right:32px;width:48px;height:48px;border-radius:50%;background:var(--navy);color:#fff;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(15,23,32,.35);display:flex;align-items:center;justify-content:center;font-size:20px;z-index:999;opacity:0;transform:translateY(20px);transition:opacity .3s,transform .3s,background .2s;pointer-events:none}
+.fab-toc.visible{opacity:1;transform:translateY(0);pointer-events:auto}
+.fab-toc:hover{background:var(--teal);box-shadow:0 6px 20px rgba(0,0,0,.25)}
+
+/* ── SCOPE CARDS ── */
+.scope-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.scope-card{background:var(--ice);border:1px solid var(--rule);border-radius:var(--r);padding:15px 16px;border-top:3px solid var(--teal)}
+.scope-card-wide{grid-column:1/-1}
+.scope-card-wide .scope-txt{white-space:pre-line}
+.scope-lbl{font-family:var(--font-m);font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;color:var(--teal-dim);margin-bottom:7px}
+.scope-txt{font-size:13px;line-height:1.6;color:var(--mid)}
+
+/* ── BILINGUAL ── */
+/* ── Hindi Translation Styles (v19.0 redesign) ── */
+.hi-block{border-left:3px solid var(--amber);padding:8px 14px;margin:6px 0 10px;background:#FFFDF7;border-radius:0 var(--r) var(--r) 0}
+.hi-label{display:none}
+.hi-text{font-size:11.5px;line-height:1.7;color:#6B5B3E;margin-bottom:4px}
+.hi-text:last-child{margin-bottom:0}
+/* Inline Hindi blocks — only visible when HI toggle is active */
+.hi-inline{display:none!important;font-size:11px;line-height:1.6;color:#8B7355;margin-top:2px}
+body.lang-hi .hi-inline{display:block!important}
+.manual-list .hi-inline{margin-top:1px;padding-left:0}
+.bilingual-pair{margin-bottom:12px}
+.bilingual-pair .manual-para{margin-bottom:2px}
+.bilingual-pair .hi-text{margin-bottom:0}
+.hi-bullets{padding-left:20px;margin:4px 0 0;list-style:disc}
+.hi-bullets li{font-size:11.5px;line-height:1.6;color:#6B5B3E;margin-bottom:2px}
+.hi-bullets li::marker{color:var(--amber)}
+.sec-title-hi{font-family:var(--font-b);font-size:11px;font-weight:600;color:var(--amber);margin-left:4px;text-transform:none;letter-spacing:0}
+.principle-text-hi{margin-top:5px;padding-top:5px;border-top:1px dashed var(--amber-bd);font-size:11px;line-height:1.55;color:var(--amber)}
+.scope-txt-hi{margin-top:5px;padding-top:5px;border-top:1px dashed var(--amber-bd);font-size:11px;line-height:1.5;color:var(--amber);white-space:pre-line}
+
+/* ── SAFETY BANNER ── */
+.safety-banner{display:grid;grid-template-columns:44px 1fr;border:1px solid var(--danger-bd);border-left:5px solid var(--danger);border-radius:0 var(--r) var(--r) 0;margin-bottom:18px;overflow:hidden}
+.safety-icon-cell{background:var(--danger-bg);display:flex;align-items:center;justify-content:center}
+.safety-icon-cell svg{width:20px;height:20px;color:var(--danger)}
+.safety-txt-cell{padding:10px 14px;background:var(--danger-bg)}
+.safety-txt{font-size:13px;line-height:1.6;color:var(--ink)}
+.safety-txt strong{color:var(--danger);font-weight:700}
+
+/* ── PPE GRID ── */
+.ppe-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.ppe-card{background:var(--ice);border:1px solid var(--rule);border-radius:var(--r2);padding:12px 6px 10px;display:flex;flex-direction:column;align-items:center;gap:7px;text-align:center;transition:border-color 180ms,box-shadow 180ms}
+.ppe-card:hover{border-color:var(--teal-rule);box-shadow:0 2px 8px rgba(45,139,139,.1)}
+.ppe-icon-wrap{width:52px;height:52px;display:flex;align-items:center;justify-content:center}
+.ppe-icon-wrap svg{width:52px;height:52px}
+.ppe-label{font-size:9.5px;font-weight:500;color:var(--mid);line-height:1.25}
+
+/* ── FLOWCHART ── */
+.flow-chain{position:relative;display:flex;flex-direction:column;max-width:820px;margin:0 auto}
+.flow-chain::before{content:'';position:absolute;left:22px;top:22px;height:calc(100% - 80px);width:2px;background:linear-gradient(180deg,var(--teal),var(--rule));z-index:0}
+/* GRID: col4 is the callout column — capped at 260px to prevent squeezing the step text.
+   DO NOT change minmax(0,260px) to 'auto' — auto expands to ~55% viewport width. */
+.flow-step{display:grid;grid-template-columns:44px 16px 1fr minmax(0,260px);align-items:start;gap:0;position:relative;z-index:1}
+.flow-num{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-d);font-size:16px;font-weight:700;background:var(--teal);color:#fff;flex-shrink:0;z-index:2;box-shadow:0 0 0 4px #fff}
+.flow-num.crit{background:var(--amber);box-shadow:0 0 0 4px #fff,0 0 0 5px var(--amber-bd)}
+.flow-conn{display:flex;align-items:flex-start;padding-top:21px}
+.flow-conn-line{width:100%;height:2px;background:var(--teal)}
+.flow-conn-line.crit{background:var(--amber)}
+.flow-box{background:var(--white);border:1.5px solid var(--rule);border-radius:var(--r);padding:10px 14px;min-height:44px;display:flex;flex-direction:column;justify-content:center;gap:4px;position:relative;box-shadow:0 1px 3px rgba(0,0,0,.05);transition:border-color 180ms,box-shadow 180ms}
+.flow-box:hover{border-color:var(--teal-rule);box-shadow:0 2px 8px rgba(45,139,139,.1)}
+.flow-box::before{content:'';position:absolute;left:-7px;top:18px;border-top:7px solid transparent;border-bottom:7px solid transparent;border-right:7px solid var(--rule)}
+.flow-box::after{content:'';position:absolute;left:-5.5px;top:19px;border-top:6px solid transparent;border-bottom:6px solid transparent;border-right:6px solid var(--white)}
+.flow-box.crit{border-color:var(--amber-bd);background:var(--amber-bg)}
+.flow-box.crit::before{border-right-color:var(--amber-bd)}
+.flow-box.crit::after{border-right-color:var(--amber-bg)}
+.crit-pill{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-m);font-size:8px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--amber);background:#FFF3D8;border:1px solid var(--amber-bd);padding:2px 8px;border-radius:3px;width:fit-content;margin-bottom:3px}
+.flow-step-text{font-size:13.5px;font-weight:500;color:var(--ink);line-height:1.5}
+/* .flow-step-note removed — callout shown exclusively in right-column callout_html */
+.flow-callout{align-self:flex-start;padding-top:2px;padding-left:12px;box-sizing:border-box}
+.callout-tag{background:var(--teal-pale);border:1px solid var(--teal-rule);border-radius:var(--r);padding:6px 10px;text-align:left}
+.callout-tag.crit{background:var(--amber-bg);border-color:var(--amber-bd)}
+.callout-txt{font-family:var(--font-m);font-size:8px;font-weight:600;color:var(--teal-dim);line-height:1.4;display:block}
+.callout-txt.crit{color:var(--amber)}
+.flow-arrow{display:grid;grid-template-columns:44px 16px 1fr minmax(0,260px);height:30px;position:relative;z-index:1}
+.arrow-spine{display:flex;align-items:center;justify-content:center;z-index:2}
+
+/* ── DECISION NODE ── */
+.flow-decision{display:grid;grid-template-columns:44px 16px 1fr auto;position:relative;z-index:1;margin-top:2px}
+.decision-wrapper{border:2px solid var(--teal);border-radius:var(--r2);overflow:hidden;box-shadow:0 1px 4px rgba(45,139,139,.12)}
+.decision-hdr{background:linear-gradient(90deg,var(--teal),var(--teal-dim));padding:12px 20px;display:flex;align-items:center;gap:12px}
+.diamond-icon{width:28px;height:28px;flex-shrink:0;background:rgba(255,255,255,.25);border-radius:3px;transform:rotate(45deg);display:flex;align-items:center;justify-content:center}
+.diamond-icon span{transform:rotate(-45deg);font-weight:800;font-size:13px;color:#fff}
+.decision-q{font-family:var(--font-d);font-size:15px;font-weight:700;color:#fff;letter-spacing:.2px}
+.decision-branches{display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid var(--rule)}
+.branch{padding:14px 16px;border-right:1px solid var(--rule);display:flex;flex-direction:column;gap:6px;transition:background 180ms}
+.branch:last-child{border-right:none}
+.branch-hdr{display:flex;align-items:center;gap:8px}
+.branch-icon{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.branch-icon svg{width:13px;height:13px}
+.branch-lbl{font-family:var(--font-d);font-size:12px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.branch-action{font-size:13px;line-height:1.55;color:var(--mid)}
+.br-accept{background:var(--green-bg)}.br-accept:hover{background:#E2F4EB}.br-accept .branch-icon{background:rgba(26,112,64,.15);color:var(--green)}.br-accept .branch-lbl{color:var(--green)}
+.br-hold{background:var(--amber-bg)}.br-hold:hover{background:#FFF0D4}.br-hold .branch-icon{background:rgba(192,128,16,.15);color:var(--amber)}.br-hold .branch-lbl{color:var(--amber)}
+.br-reject{background:var(--danger-bg)}.br-reject:hover{background:#FEE8E7}.br-reject .branch-icon{background:rgba(184,48,48,.15);color:var(--danger)}.br-reject .branch-lbl{color:var(--danger)}
+
+/* ── TABLES ── */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+thead tr{background:var(--navy)}
+th{padding:9px 14px;text-align:left;font-family:var(--font-m);font-size:7.5px;font-weight:600;letter-spacing:.9px;text-transform:uppercase;color:rgba(255,255,255,.88);border-right:1px solid rgba(255,255,255,.1)}
+th:last-child{border-right:none}
+td{padding:10px 14px;border-bottom:1px solid var(--rule-lt);color:var(--mid);vertical-align:top;line-height:1.6;border-right:1px solid var(--rule-lt)}
+td:last-child{border-right:none}
+tr:last-child td{border-bottom:none}
+tbody tr:nth-child(odd){background:var(--ice)}
+tbody tr:nth-child(even){background:var(--white)}
+tbody tr.crit-row{background:var(--amber-bg)!important}
+tbody tr.crit-row td:first-child{border-left:3px solid var(--amber);padding-left:11px}
+tbody tr:hover td{background:var(--teal-pale)!important}
+.col-num{width:38px;text-align:center;font-family:var(--font-m);font-size:11px;color:var(--lt);font-weight:500}
+.phase-chip{display:inline-block;font-family:var(--font-m);font-size:8.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;background:var(--teal-pale);color:var(--teal-dim);border:1px solid var(--teal-rule);padding:2px 8px;border-radius:3px;white-space:nowrap}
+.crit-marker{display:inline-flex;align-items:center;gap:3px;font-family:var(--font-m);font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--amber);background:#FFF3D8;border:1px solid var(--amber-bd);padding:2px 6px;border-radius:3px}
+.mono{font-family:var(--font-m);font-size:10.5px;color:var(--lt)}
+.doc-ref{font-family:var(--font-m);font-size:10px;font-weight:600;color:var(--teal-dim)}
+.ver-badge{display:inline-block;font-family:var(--font-m);font-size:10px;font-weight:600;color:var(--teal-dim);background:var(--teal-pale);border:1px solid var(--teal-rule);padding:2px 8px;border-radius:3px}
+
+/* ── RISK SCORE BADGES ── */
+.risk-low{color:var(--green);background:var(--green-bg);border:1px solid var(--green-bd)}
+.risk-med{color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-bd)}
+.risk-high{color:#C05010;background:#FFF3E0;border:1px solid #F0C090}
+.risk-extreme{color:var(--danger);background:var(--danger-bg);border:1px solid var(--danger-bd)}
+.risk-badge{display:inline-block;font-family:var(--font-m);font-size:9px;font-weight:700;padding:3px 9px;border-radius:4px}
+
+/* ── AUDIT CONFORMANCE ── */
+.conf-c{color:var(--green);background:var(--green-bg);border:1px solid var(--green-bd)}
+.conf-nc{color:var(--danger);background:var(--danger-bg);border:1px solid var(--danger-bd)}
+.conf-ofi{color:var(--amber);background:var(--amber-bg);border:1px solid var(--amber-bd)}
+.conf-na{color:var(--lt);background:var(--ice);border:1px solid var(--rule)}
+.conf-badge{display:inline-block;font-family:var(--font-m);font-size:8px;font-weight:700;padding:2px 7px;border-radius:3px;white-space:nowrap}
+
+/* ── COMPETENCE LEVELS ── */
+.comp-0{color:var(--lt);background:var(--ice);border:1px solid var(--rule)}
+.comp-1{color:#1E40AF;background:#EFF6FF;border:1px solid #BFDBFE}
+.comp-2{color:#0E7490;background:#ECFEFF;border:1px solid #A5F3FC}
+.comp-3{color:var(--green);background:var(--green-bg);border:1px solid var(--green-bd)}
+.comp-4{color:#fff;background:var(--green);border:1px solid var(--green)}
+.comp-badge{display:inline-block;font-family:var(--font-m);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px;min-width:28px;text-align:center}
+.comp-below{outline:2px solid var(--danger);outline-offset:1px}
+
+/* ── SCORING CARDS ── */
+.score-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.score-card{padding:16px;border-radius:var(--r);text-align:center;border:1px solid var(--rule)}
+.score-card-n{font-family:var(--font-d);font-size:30px;font-weight:800;line-height:1;margin-bottom:4px}
+.score-card-l{font-family:var(--font-m);font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.08em}
+
+/* ── POLICY PRINCIPLES ── */
+.principles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.principle-card{background:var(--ice);border:1px solid var(--rule);border-radius:var(--r);padding:16px;border-left:4px solid var(--teal)}
+.principle-title{font-family:var(--font-d);font-size:15px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;color:var(--navy);margin-bottom:6px}
+.principle-text{font-size:13px;line-height:1.6;color:var(--mid)}
+
+/* ── QUALITY MANUAL CLAUSE SECTIONS ── */
+.manual-clause{padding:6px 0}
+.manual-subsec{margin-bottom:16px;padding:16px 20px 14px;background:var(--white);border:1px solid var(--rule);border-radius:var(--r2);border-left:4px solid var(--teal);box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.manual-subsec-hdr{display:flex;align-items:baseline;gap:10px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--rule-lt);flex-wrap:wrap}
+.manual-clause-num{font-family:var(--font-m);font-size:10px;font-weight:700;color:#fff;background:var(--teal);padding:3px 10px;border-radius:3px;letter-spacing:.5px}
+.manual-subsec-title{font-family:var(--font-d);font-size:14px;font-weight:700;color:var(--navy);letter-spacing:.2px}
+.manual-para{font-size:13px;line-height:1.7;color:var(--ink);margin-bottom:10px}
+.manual-list{font-size:13px;line-height:1.7;color:var(--ink);padding-left:20px;margin:10px 0}
+.manual-list li{margin-bottom:6px;padding-left:2px}
+.manual-list li::marker{color:var(--teal)}
+.manual-list li strong{color:var(--navy);font-weight:600}
+
+/* ── NCR CONTENT BLOCKS ── */
+.ncr-info-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--rule);border-radius:var(--r);overflow:hidden;margin-bottom:20px}
+.ncr-info-cell{display:grid;grid-template-columns:140px 1fr;border-bottom:1px solid var(--rule-lt)}
+.ncr-info-cell:last-child{border-bottom:none}
+.ncr-info-lbl{background:var(--ice);padding:10px 14px;font-family:var(--font-m);font-size:8.5px;font-weight:600;text-transform:uppercase;letter-spacing:.6px;color:var(--teal-dim);border-right:1px solid var(--rule-lt);display:flex;align-items:center}
+.ncr-info-val{padding:10px 14px;font-size:11.5px;color:var(--ink)}
+.ncr-block{background:var(--ice);border:1px solid var(--rule);border-radius:var(--r);padding:16px;margin-bottom:14px}
+.ncr-block-lbl{font-family:var(--font-m);font-size:8px;font-weight:600;text-transform:uppercase;letter-spacing:.7px;color:var(--mid);margin-bottom:3px}
+.ncr-block-sub{font-size:10px;color:var(--lt);font-style:italic;margin-bottom:8px}
+.ncr-block-text{font-size:12px;line-height:1.65;color:var(--ink)}
+.ncr-ca-row{background:var(--danger-bg);border-left:3px solid var(--danger)}
+.status-open{color:var(--danger);font-weight:600}
+.status-progress{color:var(--amber);font-weight:600}
+.status-closed{color:var(--green);font-weight:600}
+.sev-major{background:var(--danger);color:#fff;padding:2px 9px;border-radius:3px;font-family:var(--font-m);font-size:9px;font-weight:700}
+.sev-minor{background:var(--amber);color:#fff;padding:2px 9px;border-radius:3px;font-family:var(--font-m);font-size:9px;font-weight:700}
+.sev-obs{background:var(--teal);color:#fff;padding:2px 9px;border-radius:3px;font-family:var(--font-m);font-size:9px;font-weight:700}
+
+/* ── RELATED DOCS ── */
+.reldocs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.reldoc-card{display:flex;align-items:flex-start;gap:11px;background:var(--ice);border:1px solid var(--rule);border-radius:var(--r);padding:12px 14px;transition:border-color 180ms,box-shadow 180ms}
+.reldoc-card:hover{border-color:var(--teal-rule);box-shadow:0 1px 4px rgba(45,139,139,.1)}
+.reldoc-icon{width:30px;height:30px;flex-shrink:0;background:var(--teal-pale);border:1px solid var(--teal-rule);border-radius:var(--r);display:flex;align-items:center;justify-content:center}
+.reldoc-icon svg{width:14px;height:14px;color:var(--teal-dim)}
+.reldoc-code{font-family:var(--font-m);font-size:9.5px;font-weight:600;color:var(--teal-dim);margin-bottom:3px}
+.reldoc-title{font-size:12px;font-weight:600;color:var(--ink)}
+.reldoc-meta{font-size:10.5px;color:var(--lt);margin-top:2px}
+
+/* ── SIGNATURE BLOCK ── */
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.sig-card{border-top:2.5px solid var(--teal);padding-top:10px}
+.sig-role{font-family:var(--font-m);font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--navy);margin-bottom:12px}
+.sig-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sig-field-lbl{font-size:8px;text-transform:uppercase;color:var(--lt);font-weight:500;letter-spacing:.5px;margin-bottom:2px}
+.sig-line{border-bottom:1px solid var(--ink);height:20px}
+.sig-prefill{font-size:11px;font-weight:600;color:var(--navy);border-bottom:1px solid var(--teal);height:20px;display:flex;align-items:flex-end;padding-bottom:2px}
+
+/* ── FOOTER ── */
+.doc-footer{border-top:2px solid var(--teal);padding:11px 36px;background:var(--ice);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;font-size:8.5px;color:var(--lt)}
+.footer-ref{font-family:var(--font-m);font-weight:600;color:var(--teal-dim)}
+
+/* ── EDIT TOOLBAR ── */
+.edit-toolbar{position:fixed;bottom:18px;right:18px;z-index:10000;display:flex;align-items:center;gap:8px;background:rgba(15,23,32,.94);border-radius:10px;padding:9px 14px;box-shadow:0 4px 20px rgba(0,0,0,.35);backdrop-filter:blur(6px)}
+.etb-btn{font-family:var(--font-m);font-size:11px;font-weight:600;letter-spacing:.4px;padding:6px 15px;border-radius:5px;border:none;cursor:pointer;transition:background 140ms}
+.etb-edit{background:var(--teal);color:#fff}.etb-edit:hover{background:var(--teal-dim)}
+.etb-save{background:#1A7040;color:#fff;display:none}.etb-save:hover{background:#155c35}
+.etb-cancel{background:rgba(255,255,255,.14);color:#fff;display:none}.etb-cancel:hover{background:rgba(255,255,255,.24)}
+.etb-audio{background:rgba(255,255,255,.12);color:#fff}.etb-audio:hover{background:rgba(255,255,255,.22)}.etb-audio.speaking{background:#1A5070;animation:etb-pulse 1.2s infinite}
+@keyframes etb-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.etb-status{font-size:10px;color:rgba(255,255,255,.65);display:none;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+[contenteditable]{outline:2px solid rgba(45,139,139,.45);border-radius:2px;min-width:20px;background:rgba(45,139,139,.05)}
+[contenteditable]:focus{outline:2px solid var(--teal);background:rgba(45,139,139,.1)}
+/* ── STATUS BADGES (v19.0) ── */
+.status-badge{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-m);font-size:9px;font-weight:700;padding:3px 10px;border-radius:var(--r);text-transform:uppercase;letter-spacing:.05em}
+.badge-draft{color:var(--state-draft);background:var(--state-draft-bg);border:1px solid #D1D5DB}
+.badge-review{color:#92400E;background:var(--state-review-bg);border:1px solid #F59E0B}
+.badge-approved{color:#065F46;background:var(--state-approved-bg);border:1px solid #34D399}
+.badge-published{color:#1E40AF;background:var(--state-published-bg);border:1px solid #60A5FA}
+.badge-superseded{color:#9A3412;background:var(--state-superseded-bg);border:1px solid #FB923C}
+.badge-obsolete{color:#991B1B;background:var(--state-obsolete-bg);border:1px solid #F87171}
+.badge-superseded+.sec-title,.badge-obsolete+.sec-title{text-decoration:line-through}
+/* ── DOC-LEVEL STATUS BADGES (header) ── */
+.doc-status-badge{display:inline-flex;align-items:center;font-family:var(--font-m);font-size:8px;font-weight:700;padding:2px 8px;border-radius:3px;text-transform:uppercase;letter-spacing:.06em;vertical-align:middle;margin-left:6px}
+.status-approved{background:#D1FAE5;color:#065F46;border:1px solid #34D399}
+.status-draft{background:#F3F4F6;color:#374151;border:1px solid #D1D5DB}
+.status-under-review{background:#fff3cd;color:#856404;border:1px solid #ffc107}
+.status-obsolete{background:#FEE2E2;color:#991B1B;border:1px solid #F87171}
+.status-superseded{background:#FFEDD5;color:#9A3412;border:1px solid #FB923C}
+
+/* ── RAG BADGES (v19.0) ── */
+.rag-badge{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-m);font-size:9px;font-weight:700;padding:3px 10px;border-radius:var(--r);text-transform:uppercase;letter-spacing:.05em}
+.rag-r{color:var(--rag-red-ink);background:var(--rag-red-bg);border:1px solid var(--rag-red)}
+.rag-a{color:var(--rag-amber-ink);background:var(--rag-amber-bg);border:1px solid var(--rag-amber)}
+.rag-g{color:var(--rag-green-ink);background:var(--rag-green-bg);border:1px solid var(--rag-green)}
+.rag-b{color:var(--rag-blue-ink);background:var(--rag-blue-bg);border:1px solid var(--rag-blue)}
+.rag-grey{color:var(--rag-grey-ink);background:var(--rag-grey-bg);border:1px solid var(--rag-grey)}
+
+/* ── DOMAIN ACCENT CLASSES (v19.0) ── */
+.iso-accent-quality{--accent:var(--iso-quality);--accent-lt:var(--iso-quality-lt)}
+.iso-accent-env{--accent:var(--iso-env);--accent-lt:var(--iso-env-lt)}
+.iso-accent-safety{--accent:var(--iso-safety);--accent-lt:var(--iso-safety-lt)}
+.iso-accent-energy{--accent:var(--iso-energy);--accent-lt:var(--iso-energy-lt)}
+.iso-accent-food{--accent:var(--iso-food);--accent-lt:var(--iso-food-lt)}
+.iso-accent-infosec{--accent:var(--iso-infosec);--accent-lt:var(--iso-infosec-lt)}
+.iso-accent-medical{--accent:var(--iso-medical);--accent-lt:var(--iso-medical-lt)}
+.iso-accent-auto{--accent:var(--iso-auto);--accent-lt:var(--iso-auto-lt)}
+.iso-accent-aero{--accent:var(--iso-aero);--accent-lt:var(--iso-aero-lt)}
+
+/* ── ACCESSIBILITY (v19.0) ── */
+:focus-visible{outline:2px solid var(--focus-ring);outline-offset:var(--focus-offset);border-radius:2px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* ── PAGE BREAK UTILITIES (v19.0) ── */
+.page-break{break-before:page;page-break-before:always}
+.no-break{break-inside:avoid;page-break-inside:avoid}
+
+/* ── PRINT ── */
+@page{size:A4 portrait;margin:15mm 12mm 12mm 15mm}
+@media print{
+  html{font-size:9px}
+  body{background:#fff!important;padding:0!important;margin:0!important}
+  .document{max-width:100%!important;box-shadow:none!important;border-radius:0!important;border-top:none!important;padding:0!important;margin:0!important}
+  .banner{padding:8px 12px 6px!important;break-inside:avoid}
+  .banner-title{font-size:16px!important;margin-bottom:1px!important}
+  .banner-sub{font-size:8px!important}
+  .banner-hi{font-size:10px!important}
+  .banner-qr-img{width:38px!important;height:38px!important}
+  .co-logo{max-height:28px!important}
+  .ctrl-strip{padding:3px 12px!important;gap:3px!important}
+  .ctrl-lbl{font-size:6px!important}.ctrl-val{font-size:8px!important}
+  .section{padding:0!important;break-inside:auto;page-break-inside:auto}
+  .section+.section{border-top:1px solid #ccc!important}
+  .sec-hdr{padding:6px 12px 4px!important;margin-bottom:0!important}
+  .sec-body{padding:8px 12px!important}
+  .sec-title{font-size:11px!important;margin-bottom:0!important}
+  .sec-badge{font-size:6.5px!important;padding:1px 3px!important}
+  .sec-num{width:20px!important;height:20px!important;font-size:10px!important}
+  .scope-grid{grid-template-columns:repeat(2,1fr)!important;gap:4px!important}
+  .scope-card{padding:4px 6px!important;margin-bottom:1px!important;border-radius:2px!important;border-top-width:2px!important}
+  .scope-card-wide{grid-column:1/-1!important}
+  .callout{padding:4px 6px!important;margin-bottom:2px!important;border-radius:2px!important}
+  .scope-lbl{font-size:6.5px!important;margin-bottom:1px!important}
+  .callout-txt,.scope-txt{font-size:8px!important;line-height:1.25!important}
+  .scope-txt-hi,.callout-txt-hi{font-size:7px!important;line-height:1.2!important}
+  .tbl-wrap{overflow:visible!important}
+  thead{display:table-header-group}
+  table{font-size:8px!important;page-break-inside:auto}
+  tr{page-break-inside:avoid;break-inside:avoid}
+  th{font-size:7.5px!important;padding:2px 4px!important}
+  td{padding:2px 4px!important}
+  .flow-chain{gap:3px!important}
+  .flow-step{padding:4px!important;min-height:auto!important}
+  .flow-step-text{font-size:8px!important}
+  .doc-footer{padding:4px 12px!important;font-size:6.5px!important}
+  .wm,.edit-toolbar{display:none!important}
+  .ver-badge{font-size:7px!important;padding:1px 3px!important}
+  a{text-decoration:none!important;color:inherit!important}
+  .scope-group{gap:2px!important}
+  .callout-group{gap:2px!important}
+  .manual-subsec{margin-bottom:4px!important;padding:6px 10px 4px!important;border-left-width:2px!important;box-shadow:none!important}
+  .manual-subsec-hdr{margin-bottom:2px!important;padding-bottom:2px!important;gap:4px!important}
+  .manual-subsec-title{font-size:10px!important}
+  .manual-subsec-clause{font-size:7px!important;padding:1px 3px!important}
+  .manual-subsec p,.manual-subsec .hi-block{margin-bottom:2px!important}
+  .hi-block{padding:3px 6px!important;margin:2px 0 3px!important}
+  .hi-text{font-size:7px!important;line-height:1.25!important}
+  .hi-inline{font-size:7px!important}
+  .principles-grid{gap:4px!important}
+  .principle-card{padding:4px 6px!important}
+  .principle-title{font-size:9px!important}
+  .principle-text{font-size:8px!important;line-height:1.25!important}
+  .principle-text-hi{font-size:7px!important;line-height:1.2!important}
+  .policy-box{padding:6px 10px!important;margin-bottom:4px!important}
+  .policy-box p{font-size:8.5px!important;line-height:1.3!important}
+  .obj-table{font-size:8px!important}
+  .obj-table th{font-size:7px!important;padding:2px 3px!important}
+  .obj-table td{padding:2px 3px!important;font-size:8px!important}
+  .sig-grid{gap:4px!important;grid-template-columns:repeat(3,1fr)!important}
+  .sig-card{padding:6px!important}
+  .sig-lbl{font-size:6px!important}
+  .sig-name{font-size:8px!important}
+  .sig-title{font-size:7px!important}
+  p{margin:0 0 2px!important}
+  ul,ol{margin:1px 0!important;padding-left:14px!important}
+  li{margin-bottom:1px!important;font-size:8px!important}
+}
+
+/* ── MOBILE RESPONSIVE ── */
+@media(max-width:768px){
+  .document{max-width:100%!important;padding:16px 12px!important;border-radius:0!important;margin:0!important}
+  /* Banner */
+  .banner{padding:16px!important}
+  .banner-top-row{gap:10px!important}
+  .co-logo{max-height:36px!important}
+  .banner-title{font-size:16px!important}
+  .banner-bottom-row{flex-direction:column!important;align-items:flex-start!important}
+  .banner-qr-right{flex-direction:row!important;gap:8px!important;align-items:center!important}
+  .banner-qr-img{width:36px!important;height:36px!important}
+  /* Control strip: 2 cols */
+  .ctrl-strip{grid-template-columns:repeat(2,1fr)!important}
+  /* Section padding */
+  .sec-hdr{padding:12px 16px 10px!important}
+  .sec-body{padding:14px 16px!important}
+  /* Grids: 1 col */
+  .scope-grid{grid-template-columns:1fr!important}
+  .principles-grid{grid-template-columns:1fr!important}
+  .sig-grid{grid-template-columns:1fr!important}
+  .reldocs-grid{grid-template-columns:1fr!important}
+  /* Tables: horizontal scroll */
+  .tbl-wrap{overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+  table{min-width:500px!important}
+  th,td{padding:8px 10px!important}
+  /* Flow steps, safety cards: 1 col */
+  .flow-grid{grid-template-columns:1fr!important}
+  .safety-grid{grid-template-columns:1fr!important}
+  .ppe-grid{grid-template-columns:repeat(2,1fr)!important}
+}
+</style>
+<style>
+/* ── Unified bottom toolbar ── */
+#bil-toolbar{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:10000;
+  display:flex;align-items:center;gap:6px;background:rgba(15,23,32,.94);
+  border-radius:12px;padding:8px 14px;box-shadow:0 4px 24px rgba(0,0,0,.4);
+  backdrop-filter:blur(8px);font-family:Inter,system-ui,sans-serif;font-size:12px}
+.tb-btn{padding:6px 14px;border-radius:7px;font-size:11px;font-weight:600;
+  cursor:pointer;border:none;transition:background .15s;letter-spacing:.3px}
+.tb-lang{background:rgba(255,255,255,.12);color:#fff}
+.tb-lang:hover{background:rgba(255,255,255,.22)}
+.tb-lang.active{background:#2D8B8B;color:#fff}
+.tb-audio{background:rgba(255,255,255,.10);color:#fff}
+.tb-audio:hover{background:rgba(255,255,255,.20)}
+.tb-audio.speaking{background:#1A5070;animation:tb-pulse 1.2s infinite}
+@keyframes tb-pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.tb-sep{width:1px;height:20px;background:rgba(255,255,255,.2);margin:0 2px}
+.tb-status{font-size:10px;color:rgba(255,255,255,.6);display:none}
+.lang-section{display:none}
+.lang-section.active{display:block}
+#bil-top{position:fixed;bottom:62px;left:50%;transform:translateX(-50%);z-index:9999;
+  width:40px;height:40px;border-radius:50%;background:#0F1720;color:#fff;border:none;
+  cursor:pointer;box-shadow:0 3px 12px rgba(0,0,0,.3);display:none;align-items:center;
+  justify-content:center;font-size:18px;transition:opacity .3s,background .2s}
+#bil-top:hover{background:#2D8B8B}
+#bil-top.visible{display:flex}
+@media print{#bil-toolbar,#bil-top{display:none!important}}
+</style>
+</head>
+<body>
+<div class="lang-section active" data-lang="en">
+<div class="document" data-doc-code="YPP_QMP-001">
+  <div class="banner">
+    <div class="banner-inner">
+      <div class="banner-header">
+        <div class="banner-top-row">
+          <div class="banner-logo-left"></div>
+          <div class="banner-eyebrow"><span>ISO 9001:2015 | ISO 14001:2015 | ISO 45001:2018 | ISO 50001:2018</span><span class="ey-sep"></span><span>Quality / IMS Manual</span><span class="ey-sep"></span><span>Clause 4.0 – 10.0 — Integrated Management System Manual</span></div>
+        </div>
+        <div class="banner-title">Integrated Management System Manual</div>
+        <div class="banner-bottom-row">
+          <div class="banner-org">Top Management</div>
+          <div class="doc-code-badge">YPP_QMP-001 &nbsp;|&nbsp; v1.0</div>
+        </div>
+      </div>
+      <div class="banner-qr-right"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAADXCAIAAAAGH1PiAAAFMklEQVR4nO3dMZLbOBAF0PHWHoCh073/oZxuyBuMcwaowgCND1DvpZYoSvMLZBsE+tf39/cXRP2T/XiQQrZgLCRPCsmTQvKkkDwpJE8KyZNC8qSQPCkkTwrJk0LypJC8f7teff3+72uJ+/8/P37v4yTbh6p7cZereeSuf33oevFEXT+OsZA8KSRPCsmTQk6rTh7qbs9HXtx1a98+8uPFXd+3ruC4er7+nn/BB2MheVJInhSSJ4UcXp2M3J/W3ekvu7XvKmW6zuoeKKFGJnjq/oJtxkLypJA8KSRPCnlXdZIycVqibeTGv+4kr7LnzZYxFpInheRJIXlSSN4bqpOH9u153TKUrrMaKUfu0OKYOsZC8qSQPCkkTwp5V3WSuhGeOA8xsuC8fVbLDnXiX9BYSJ4UkieF5Ekhh1cnyzaAmqiudumasxlZhnKVPRWWYiwkTwrJk0LypJC8X0f0ip94Ez1xR6+JpzGRJ7vgJ1yRyZNC8qSQw/ud1PXS6Fqlscmd/sSNxe6yImnPAstYSJ4UkieF5Ekhp82dTGz8V7dp7sQtdSee5ER3We2y7Hd+MBaSJ4XkSSF5Usirq5MuE5+wSnX4eEFH96tsf4E2YyF5UkieFJInhRxenUycLFlm4nzAxFmKLqmJpZGzajMWkieF5EkheVLIq3cUnthSsK4qWnaSI5/btmwLr7oJHmMheVJInhSSJ4V80pNdE//XPlWsbLKypG3kKyx7Nu/BWEieFJInheRJIafNnSzrcN5+b90kzYhN1src5k7gB1yRyZNC8qSQD95RuF1w1KkrRyZu9Hv3NHZsH2rZb2XPLs7mikyeFJInhbxrVXzXi+smAJbtNJXq/nKFdtaqW29vLCRPCsmTQvKkkE/qd7KsZ2L7rLre23WoPVu4X6Gn77oYC8mTQvKkkDwp5LTq5CG1/nziNMwmfeY3qTAmHsrcCYdxRSZPCsmTQvI23bOr7lGuutbxDvX109/KWEieFJInheRJIe+qTh7qugSmFn5vsilyW936nrp5JmMheVJInhSSJ4W8uhvjsjv9PbvQj2yKfK/a57j94vY3mnjOxkLypJA8KSRPCnlXdTLy3/R1Dc9TLRTbX7D93k26T3axZxdnc0UmTwrJk0LeVZ08THx2K9UzcaTg6DqNK/RIVdtI25UuxkLypJA8KSRPCnn1nl2b1C7LFqlsMsNxr1rCojrhVVyRyZNC8qSQd3VjPGIuoW5L3WW7INdJ7b5sLCRPCsmTQvKkkA/uFX/i0opNJoeuPR4D0++EV3FFJk8KyZNCXl2djLx3Wc+STeqee9VsUPtzl/19H4yF5EkheVJInhTy6lXxy56w6jryxHXvdS1brlULTTYpsIyF5EkheVJInhRy+Kr4Zfbs2d515FQ1dq86lLkTzuaKTJ4UkieFnDZ3klqevawcmThZsmzN/F3WQnHZ4nxjIXlSSJ4UkieFHP5kV93EQ9e/Tlw8Ubf+fFnf9bZlS3a6GAvJk0LypJA8KeSTesU/bPJI1UjDwfbn1tUuXY7Y5tlYSJ4UkieF5EkhH7wqfkTXUvaRB5/anzux/mirm7QY+SUfrDvhbK7I5EkheVJI3pHVSd1zUJusSukysWhIdY4xFpInheRJIXlSyLuqkyNWS3S9eNmhrlAjma7TqKtdjIXkSSF5UkieFHJ4dbJsC69Ul8C6JSwndoO/rYrnxVyRyZNC8qSQvDP6nfBuxkLypJA8KSRPCsmTQvKkkDwpJE8KyZNC8qSQPCkkTwrJk0LypJCvuL9TD9bEJpv03gAAAABJRU5ErkJggg==" class="banner-qr-img" alt="QR"><span class="banner-qr-lbl">YPP_QMP-001</span></div>
+    </div>
+  </div>
+  <div class="ctrl-strip"><div class="ctrl-cell"><div class="ctrl-lbl">Document Type</div><div class="ctrl-val">Quality / IMS Manual</div></div><div class="ctrl-cell"><div class="ctrl-lbl">Document Owner</div><div class="ctrl-val">PL Pradhan</div></div><div class="ctrl-cell"><div class="ctrl-lbl">Approved By</div><div class="ctrl-val">Tarun Mishra</div></div><div class="ctrl-cell"><div class="ctrl-lbl">Effective Date</div><div class="ctrl-val">2026-04-24</div></div><div class="ctrl-cell"><div class="ctrl-lbl">Next Review</div><div class="ctrl-val">Apr 2027</div></div><div class="ctrl-cell"><div class="ctrl-lbl">Copy Status</div><div class="ctrl-val">Controlled</div></div></div>
+
+  <div class="section" id="sec-1">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">1</div>
+      <span class="sec-title">Scope &amp; Purpose</span>
+      <span class="sec-tag">ISO 9001:2015 | ISO 14001:2015 | ISO 45001:2018 | ISO 50001:2018</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="scope-grid"><div class="scope-card scope-card-wide"><div class="scope-lbl">Purpose</div><p class="scope-txt">This IMS Manual is the apex document of the Yash Poly Plast Integrated Management System. It defines organisational context, leadership commitment, scope, and clause-by-clause conformance to ISO 9001:2015, ISO 14001:2015, ISO 45001:2018, and ISO 50001:2018. All lower-tier documents — SOPs, Work Instructions, Forms, and Registers — derive their authority from this manual.</p></div><div class="scope-card scope-card-wide"><div class="scope-lbl">Scope of IMS</div><p class="scope-txt">Yash Poly Plast designs, manufactures, and supplies HDPE Bottles and Cans for industrial and consumer applications. The IMS covers blow moulding, injection moulding, raw material storage, quality control, maintenance, warehousing, and despatch at the Navi Mumbai facility. Clause 8.3 (Design and Development) is excluded — products are manufactured to customer-specified designs.</p></div><div class="scope-card"><div class="scope-lbl">Applies To</div><p class="scope-txt">All employees, contractors, and visitors at the Yash Poly Plast facility. Applicable to all departments: Production, Quality, Maintenance, Purchase, Stores, Warehouse, and Administration.</p></div><div class="scope-card"><div class="scope-lbl">Management Representative</div><p class="scope-txt">PL Pradhan is appointed as Management Representative with full authority for IMS implementation, maintenance, and continual improvement. Reports directly to the Director (Tarun Mishra).</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-2">
+    <div class="sec-hdr">
+      <div class="sec-num">2</div>
+      <span class="sec-title">Table of Contents</span>
+      
+      
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table class="toc-table"><thead><tr><th style="width:50px;text-align:center">No.</th><th>Section Title</th><th style="width:90px;text-align:right">Reference</th></tr></thead><tbody><tr><td class="toc-sec-num">3</td><td><a href="#sec-3">Process Approach &amp; PDCA Cycle</a></td><td class="toc-tag">3</td></tr><tr><td class="toc-sec-num">4</td><td><a href="#sec-4">Normative References</a></td><td class="toc-tag">4</td></tr><tr><td class="toc-sec-num">5</td><td><a href="#sec-5">Terms, Definitions &amp; Abbreviations</a></td><td class="toc-tag">5</td></tr><tr><td class="toc-sec-num">6</td><td><a href="#sec-6">Policy Statement</a></td><td class="toc-tag">6</td></tr><tr><td class="toc-sec-num">7</td><td><a href="#sec-7">Management Representative</a></td><td class="toc-tag">7</td></tr><tr><td class="toc-sec-num">8</td><td><a href="#sec-8">Document Numbering Convention</a></td><td class="toc-tag">8</td></tr><tr><td class="toc-sec-num">9</td><td><a href="#sec-9">Distribution &amp; Control of Documents</a></td><td class="toc-tag">9</td></tr><tr><td class="toc-sec-num">10</td><td><a href="#sec-10">Amendment &amp; Change Management</a></td><td class="toc-tag">10</td></tr><tr><td class="toc-sec-num">11</td><td><a href="#sec-11">Document Hierarchy</a></td><td class="toc-tag">11</td></tr><tr><td class="toc-sec-num">12</td><td><a href="#sec-12">1.0 About This Manual</a></td><td class="toc-tag">Clause 1.0</td></tr><tr><td class="toc-sec-num">13</td><td><a href="#sec-13">4.0 Context of the Organisation</a></td><td class="toc-tag">Clause 4.0</td></tr><tr><td class="toc-sec-num">14</td><td><a href="#sec-14">5.0 Leadership</a></td><td class="toc-tag">Clause 5.0</td></tr><tr><td class="toc-sec-num">15</td><td><a href="#sec-15">6.0 Planning</a></td><td class="toc-tag">Clause 6.0</td></tr><tr><td class="toc-sec-num">16</td><td><a href="#sec-16">7.0 Support</a></td><td class="toc-tag">Clause 7.0</td></tr><tr><td class="toc-sec-num">17</td><td><a href="#sec-17">8.0 Operation</a></td><td class="toc-tag">Clause 8.0</td></tr><tr><td class="toc-sec-num">18</td><td><a href="#sec-18">9.0 Performance Evaluation</a></td><td class="toc-tag">Clause 9.0</td></tr><tr><td class="toc-sec-num">19</td><td><a href="#sec-19">10.0 Improvement</a></td><td class="toc-tag">Clause 10.0</td></tr><tr><td class="toc-sec-num">20</td><td><a href="#sec-20">Quality Objectives</a></td><td class="toc-tag">6.2</td></tr><tr><td class="toc-sec-num">21</td><td><a href="#sec-21">Annexure I — Applicable Standards and Clauses</a></td><td class="toc-tag">Appendix</td></tr><tr><td class="toc-sec-num">22</td><td><a href="#sec-22">Annexure II — IMS Document Master List (Summary)</a></td><td class="toc-tag">Appendix</td></tr><tr><td class="toc-sec-num">23</td><td><a href="#sec-23">Annexure III — Key Customers and Products</a></td><td class="toc-tag">Appendix</td></tr><tr><td class="toc-sec-num">24</td><td><a href="#sec-24">Annexure IV — Organisational Chart — IMS Functions</a></td><td class="toc-tag">Appendix</td></tr><tr><td class="toc-sec-num">25</td><td><a href="#sec-25">Annexure V — Significant Environmental Aspects</a></td><td class="toc-tag">Appendix</td></tr><tr><td class="toc-sec-num">26</td><td><a href="#sec-26">Annexure VI — Amendment History</a></td><td class="toc-tag">Appendix</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-3">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">3</div>
+      <span class="sec-title">Process Approach &amp; PDCA Cycle</span>
+      <span class="sec-tag">ISO 9001:2015 §0.3</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><p class="manual-para">Yash Poly Plast adopts the Process Approach as required by ISO 9001:2015, ISO 14001:2015, ISO 45001:2018, and ISO 50001:2018. All activities are managed as interrelated processes within the PDCA (Plan-Do-Check-Act) cycle to achieve consistent and predictable results.</p><div class="principles-grid" style="grid-template-columns:repeat(4,1fr)"><div class="principle-card"><div class="principle-title">📋 Plan</div><p class="principle-text">Establish IMS objectives; identify environmental aspects, hazards, and energy uses; determine legal obligations; and plan processes to deliver results aligned with customer requirements and interested-party expectations.</p></div><div class="principle-card"><div class="principle-title">⚙️ Do</div><p class="principle-text">Implement and execute planned processes — production, quality control, supplier management, training, housekeeping, waste management, energy monitoring — according to documented SOPs and Work Instructions.</p></div><div class="principle-card"><div class="principle-title">🔍 Check</div><p class="principle-text">Monitor and measure process performance against policies, objectives, and legal requirements through internal audits, management reviews, calibration, customer feedback, environmental monitoring, and energy performance indicators.</p></div><div class="principle-card"><div class="principle-title">📈 Act</div><p class="principle-text">Take corrective and preventive actions; drive continual improvement through CAPA, management review outputs, and energy performance reviews to enhance IMS effectiveness.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-4">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">4</div>
+      <span class="sec-title">Normative References</span>
+      <span class="sec-tag">§2.0</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col" style="width:160px">Standard</th><th scope="col">Title</th></tr></thead><tbody><tr><td class="mono" style="white-space:nowrap"><strong>ISO 9001:2015</strong></td><td>Quality management systems — Requirements</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 14001:2015</strong></td><td>Environmental management systems — Requirements with guidance for use</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 45001:2018</strong></td><td>Occupational health and safety management systems — Requirements with guidance for use</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 50001:2018</strong></td><td>Energy management systems — Requirements with guidance for use</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 19011:2018</strong></td><td>Guidelines for auditing management systems</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 9000:2015</strong></td><td>Quality management systems — Fundamentals and vocabulary</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>Factories Act, 1948</strong></td><td>Indian legislation governing factory operations, worker safety, and working conditions</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>Environment Protection Act, 1986</strong></td><td>Indian legislation for environmental protection and pollution control</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>BIS Standards</strong></td><td>Applicable Bureau of Indian Standards for HDPE packaging products</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-5">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">5</div>
+      <span class="sec-title">Terms, Definitions &amp; Abbreviations</span>
+      <span class="sec-tag">§3.0</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col" style="width:100px">Abbreviation</th><th scope="col">Full Form</th></tr></thead><tbody><tr><td class="mono"><strong>IMS</strong></td><td>Integrated Management System</td></tr><tr><td class="mono"><strong>QMS</strong></td><td>Quality Management System</td></tr><tr><td class="mono"><strong>EMS</strong></td><td>Environmental Management System</td></tr><tr><td class="mono"><strong>OH&amp;S</strong></td><td>Occupational Health &amp; Safety</td></tr><tr><td class="mono"><strong>EnMS</strong></td><td>Energy Management System</td></tr><tr><td class="mono"><strong>MR</strong></td><td>Management Representative</td></tr><tr><td class="mono"><strong>MRM</strong></td><td>Management Review Meeting</td></tr><tr><td class="mono"><strong>SOP</strong></td><td>Standard Operating Procedure</td></tr><tr><td class="mono"><strong>WI</strong></td><td>Work Instruction</td></tr><tr><td class="mono"><strong>FRM</strong></td><td>Form / Record</td></tr><tr><td class="mono"><strong>REG</strong></td><td>Register</td></tr><tr><td class="mono"><strong>CAPA</strong></td><td>Corrective Action and Preventive Action</td></tr><tr><td class="mono"><strong>NCR</strong></td><td>Non-Conformance Report</td></tr><tr><td class="mono"><strong>HIRA</strong></td><td>Hazard Identification and Risk Assessment</td></tr><tr><td class="mono"><strong>EAI</strong></td><td>Environmental Aspects and Impacts</td></tr><tr><td class="mono"><strong>SEU</strong></td><td>Significant Energy Use</td></tr><tr><td class="mono"><strong>EnPI</strong></td><td>Energy Performance Indicator</td></tr><tr><td class="mono"><strong>IQC</strong></td><td>Incoming Quality Control</td></tr><tr><td class="mono"><strong>IPC</strong></td><td>In-Process Control</td></tr><tr><td class="mono"><strong>FQC</strong></td><td>Final Quality Control</td></tr><tr><td class="mono"><strong>PPE</strong></td><td>Personal Protective Equipment</td></tr><tr><td class="mono"><strong>HDPE</strong></td><td>High-Density Polyethylene</td></tr><tr><td class="mono"><strong>RM</strong></td><td>Raw Material</td></tr><tr><td class="mono"><strong>FG</strong></td><td>Finished Goods</td></tr><tr><td class="mono"><strong>MSDS</strong></td><td>Material Safety Data Sheet / SDS</td></tr><tr><td class="mono"><strong>PTW</strong></td><td>Permit to Work</td></tr><tr><td class="mono"><strong>KPI</strong></td><td>Key Performance Indicator</td></tr><tr><td class="mono"><strong>YPP</strong></td><td>Yash Poly Plast (document prefix)</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-6">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">6</div>
+      <span class="sec-title">Policy Statement</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="ncr-block"><div class="ncr-block-lbl">Policy Statement</div><p style="margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--ink)">Yash Poly Plast is committed to delivering high-quality HDPE Bottles and Cans while protecting the environment and ensuring the health and safety of every employee.</p><p style="margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--ink)">Our Integrated Management System (IMS) is established in conformance with ISO 9001:2015, ISO 14001:2015, ISO 45001:2018, and ISO 50001:2018.</p><p style="margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--ink)">We pledge to: meet customer requirements and continually improve product quality; prevent pollution and minimise our environmental footprint; eliminate hazards and reduce OH&amp;S risks to our workforce; improve energy performance and reduce energy intensity; comply with all applicable legal and regulatory requirements; and engage all employees in the continual improvement of our management systems.</p></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-7">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">7</div>
+      <span class="sec-title">Management Representative</span>
+      <span class="sec-tag">ISO 9001:2015 §5.3</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="ncr-block"><div class="ncr-block-lbl">PL Pradhan — Management Representative</div><ul class="manual-list"><li>Ensuring that IMS processes are established, implemented, and maintained</li><li>Reporting to Top Management on IMS performance and improvement opportunities</li><li>Promoting awareness of customer, environmental, OH&amp;S, and energy requirements across all employees</li><li>Acting as the primary liaison with external certification bodies and auditors</li><li>Coordinating internal audits and management review meetings</li><li>Overseeing CAPA effectiveness and timely closure</li><li>Maintaining the Document Master List and controlling document revisions</li></ul></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-8">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">8</div>
+      <span class="sec-title">Document Numbering Convention</span>
+      <span class="sec-tag">ISO 9001:2015 §7.5.2</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><p class="manual-para">All IMS documents follow a structured coding convention to ensure traceability and easy retrieval.</p><div class="ncr-block"><div class="ncr-block-lbl">Format: YPP_[Category]-[Area]-[Serial]</div><p class="manual-para" style="margin:8px 0"><strong>Prefix:</strong> YPP = Yash Poly Plast (company prefix)</p></div><div class="tbl-wrap"><table><thead><tr><th scope="col" style="width:80px">Code</th><th scope="col">Category</th><th scope="col" style="width:140px">Example</th></tr></thead><tbody><tr><td class="mono"><strong>QMP</strong></td><td>IMS Manual (Apex document)</td><td class="mono doc-ref">YPP_QMP-001</td></tr><tr><td class="mono"><strong>SOP</strong></td><td>Standard Operating Procedure</td><td class="mono doc-ref">YPP_SOP-PRD-001</td></tr><tr><td class="mono"><strong>WI</strong></td><td>Work Instruction</td><td class="mono doc-ref">YPP_WI_PRD-01</td></tr><tr><td class="mono"><strong>FRM</strong></td><td>Form / Inspection Record</td><td class="mono doc-ref">YPP_FRM-CAL-01</td></tr><tr><td class="mono"><strong>REG</strong></td><td>Register / Log</td><td class="mono doc-ref">YPP_REG-CAL-01</td></tr><tr><td class="mono"><strong>LST</strong></td><td>List / Master List</td><td class="mono doc-ref">YPP_LST_SPA-01</td></tr><tr><td class="mono"><strong>PLN</strong></td><td>Plan / Programme</td><td class="mono doc-ref">YPP_PLN-ENV-01</td></tr><tr><td class="mono"><strong>POL</strong></td><td>Policy Document</td><td class="mono doc-ref">YPP_QP-9001-001</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-9">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">9</div>
+      <span class="sec-title">Distribution &amp; Control of Documents</span>
+      <span class="sec-tag">ISO 9001:2015 §7.5.3</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><p class="manual-para">This manual is a controlled document. Distribution, access, and obsolescence are managed as follows:</p><div class="principles-grid"><div class="principle-card"><div class="principle-title">Controlled Copies</div><p class="principle-text">The master copy is maintained electronically on the company QMS platform by the Management Representative. All revisions supersede previous versions immediately upon approval.</p></div><div class="principle-card"><div class="principle-title">Access</div><p class="principle-text">All employees have access to the current version via the QMS platform or printed copies issued by the MR. External parties (auditors, customers, regulatory bodies) may access read-only copies upon approval of the Director.</p></div><div class="principle-card"><div class="principle-title">Uncontrolled Copies</div><p class="principle-text">Printed copies without the CONTROLLED COPY stamp are uncontrolled. Users are responsible for verifying they are using the current revision.</p></div><div class="principle-card"><div class="principle-title">Obsolete Documents</div><p class="principle-text">Superseded versions are archived electronically with an OBSOLETE watermark. Physical obsolete copies are withdrawn and destroyed to prevent unintended use.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-10">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">10</div>
+      <span class="sec-title">Amendment &amp; Change Management</span>
+      <span class="sec-tag">ISO 9001:2015 §7.5</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><p class="manual-para">All changes to this manual require review and approval before issue.</p></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-11">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">11</div>
+      <span class="sec-title">Document Hierarchy</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="tbl-wrap"><table><thead><tr><th scope="col" style="width:120px">Level</th><th scope="col">Description</th><th scope="col" style="width:200px">Examples</th></tr></thead><tbody><tr><td><strong>Level 1 — IMS Manual</strong></td><td>This document. Defines scope, policy, objectives framework, and clause-by-clause IMS conformance for all four standards.</td><td class="doc-ref">YPP_QMP-001</td></tr><tr><td><strong>Level 2 — Standard Operating Procedures</strong></td><td>Process-level procedures defining how each IMS process is managed, who is responsible, and what records are maintained.</td><td class="doc-ref">YPP_SOP-PRD-001, YPP_SOP-OHS-001, YPP_SOP-ENV-001, YPP_SOP-CAL-001 etc.</td></tr><tr><td><strong>Level 3 — Work Instructions</strong></td><td>Step-by-step operator-level instructions for specific tasks and activities on the shop floor.</td><td class="doc-ref">YPP_WI_PRD-01 to YPP_WI_PRD-07, YPP_WI_IQC-01</td></tr><tr><td><strong>Level 4 — Forms, Records &amp; Registers</strong></td><td>Blank forms used to capture inspection data, audit findings, training records, and other objective evidence of IMS operation.</td><td class="doc-ref">YPP_FRM-CAL-01, YPP_FRM-NC-01, YPP_REG-CAL-01, YPP_REG-TRN-01 etc.</td></tr></tbody></table></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-12">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">12</div>
+      <span class="sec-title">1.0 About This Manual</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">1.1</span><span class="manual-subsec-title">Purpose and Authority</span></div><p class="manual-para">This IMS Manual is the apex document of the Yash Poly Plast Integrated Management System. It establishes the framework for Quality, Environmental, OH&amp;S, and Energy management across the entire facility.</p><ul class="manual-list"><li>Defines organisational context, leadership commitment, and IMS scope</li><li>Sets out clause-by-clause conformance to all four ISO standards</li><li>All SOPs, Work Instructions, Forms, and Registers derive their authority from this manual</li><li>All employees are required to understand and work within this framework</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">1.2</span><span class="manual-subsec-title">Document Control</span></div><p class="manual-para">This manual is a controlled document. The master copy is maintained electronically by the Management Representative (PL Pradhan). Printed copies are uncontrolled unless stamped CONTROLLED COPY.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-13">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">13</div>
+      <span class="sec-title">4.0 Context of the Organisation</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">4.1</span><span class="manual-subsec-title">Internal and External Issues</span></div><p class="manual-para">Yash Poly Plast has systematically determined the issues relevant to its purpose and strategic direction.</p><ul class="manual-list"><li>Internal: production capacity, workforce competence, machine reliability, energy efficiency, financial resources</li><li>External: customer expectations (Arabian Petroleum, Apar Industries, Exsan Industries), raw material price volatility</li><li>External: regulatory requirements under Factories Act and Environment Protection Act</li><li>External: competitor landscape, community obligations, and environmental context</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">4.2</span><span class="manual-subsec-title">Interested Parties</span></div><p class="manual-para">The following interested parties and their requirements are documented and reviewed at each Management Review Meeting:</p><ul class="manual-list"><li>Customers — product quality, on-time delivery, traceability</li><li>Employees — safe working conditions, competence, fair treatment</li><li>Regulatory bodies — compliance with Factories Act, EPA, BIS standards</li><li>Suppliers — clear specifications, timely payment, long-term partnership</li><li>Local community — minimal environmental impact, noise, and waste</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">4.3</span><span class="manual-subsec-title">Scope of the IMS</span></div><p class="manual-para">The IMS scope covers: blow moulding, injection moulding, raw material storage, quality control, maintenance, warehousing, and despatch at the Navi Mumbai facility. Clause 8.3 (Design and Development) is excluded as products are manufactured to customer-specified designs.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">4.4</span><span class="manual-subsec-title">IMS Processes</span></div><p class="manual-para">Process interactions are mapped in the Process Interaction Matrix. Each process has a defined owner, inputs, outputs, KPIs, and associated documented information. Refer to the Process List in this manual.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-14">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">14</div>
+      <span class="sec-title">5.0 Leadership</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">5.1</span><span class="manual-subsec-title">Top Management Commitment</span></div><p class="manual-para">The Director (Tarun Mishra) provides visible top-level leadership and ultimate accountability for the IMS. Leadership responsibilities include:</p><ul class="manual-list"><li>Establishing and communicating IMS policies to all employees</li><li>Ensuring integration of IMS requirements into business processes</li><li>Promoting a culture of quality, safety, and environmental responsibility</li><li>Ensuring availability of resources for IMS operation and improvement</li><li>Driving continual improvement and reviewing IMS performance</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">5.2</span><span class="manual-subsec-title">IMS Policies</span></div><p class="manual-para">Four integrated policies govern the IMS, all approved by the Director and communicated via induction training, notice boards, and toolbox talks:</p><ul class="manual-list"><li>Quality Policy (YPP_QP-9001-001) — ISO 9001:2015</li><li>Environmental Policy (YPP_EMP-POL-001) — ISO 14001:2015</li><li>OH&amp;S Policy (YPP_OHS-POL-001) — ISO 45001:2018</li><li>Energy Policy (YPP_ENP-POL-001) — ISO 50001:2018</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">5.3</span><span class="manual-subsec-title">Roles, Responsibilities &amp; Authorities</span></div><p class="manual-para">The Management Representative (PL Pradhan) is formally appointed by the Director. Key IMS roles and their responsibilities are defined in individual SOPs and the Competence &amp; Training procedure (YPP_SOP-COM-001). The organisational chart is provided in Annexure IV.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-15">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">15</div>
+      <span class="sec-title">6.0 Planning</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">6.1</span><span class="manual-subsec-title">Risks and Opportunities</span></div><p class="manual-para">Planning addresses risks and opportunities across all four management systems:</p><ul class="manual-list"><li>OH&amp;S risks: Hazard Identification and Risk Assessment — YPP_SOP-OHS-001</li><li>Environmental risks: Aspects &amp; Impacts evaluation — YPP_SOP-ENV-001</li><li>Quality risks: Risk-Based Thinking register — YPP_SOP-RBI-001</li><li>Legal compliance: Legal registers — YPP_REG-LGL-01, YPP_REG-LGL-OHS-01</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">6.2</span><span class="manual-subsec-title">IMS Objectives and Planning</span></div><p class="manual-para">IMS objectives are established for each standard, covering quality, safety, environment, and energy. Objectives are SMART (Specific, Measurable, Achievable, Relevant, Time-bound). Tracked via YPP_REG-OBJ-01 and reviewed at Management Review Meetings. Refer to the Objectives table in this manual.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">6.3</span><span class="manual-subsec-title">Energy Planning</span></div><p class="manual-para">The Energy Review identifies Significant Energy Uses (SEUs), energy performance baselines, and Energy Performance Indicators (EnPIs). Energy planning is documented in YPP_SOP-SEU-001 and tracked through YPP_REG-ENM-01.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">6.4</span><span class="manual-subsec-title">Planning for Change</span></div><p class="manual-para">Planned changes to the IMS are assessed for risk and opportunity before implementation in accordance with the Change Management process described in this manual and YPP_SOP-DC-001.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-16">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">16</div>
+      <span class="sec-title">7.0 Support</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.1</span><span class="manual-subsec-title">Resources</span></div><p class="manual-para">The organisation ensures adequate resources for IMS operation including people, infrastructure, work environment, monitoring and measurement equipment, and organisational knowledge. Infrastructure and work environment are maintained per YPP_SOP-MTN-001 and YPP_SOP-HK-001.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.2</span><span class="manual-subsec-title">Competence and Training</span></div><p class="manual-para">Employees performing work that affects IMS performance are required to be competent on the basis of education, training, or experience.</p><ul class="manual-list"><li>Competence requirements and training needs analysis — YPP_SOP-COM-001</li><li>Training records maintained in — YPP_REG-TRN-01</li><li>Training effectiveness evaluated after each training event</li><li>New employee IMS induction completed within 30 days of joining</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.3</span><span class="manual-subsec-title">Awareness</span></div><p class="manual-para">All employees are made aware of IMS policies, their contribution to IMS objectives, and the consequences of not conforming to IMS requirements. Awareness is reinforced through toolbox talks, induction training, and notice boards.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.4</span><span class="manual-subsec-title">Monitoring, Measurement &amp; Calibration</span></div><p class="manual-para">Measurement equipment is identified, calibrated, and maintained per YPP_SOP-CAL-001. Calibration records are maintained in YPP_REG-CAL-01. Equipment found out-of-calibration is quarantined and previous results assessed for validity.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.5</span><span class="manual-subsec-title">Documented Information</span></div><p class="manual-para">Document and record control follows YPP_SOP-DC-001. The Document Master List is maintained by the MR. Documents are reviewed and approved before issue, and updated when changes occur.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-17">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">17</div>
+      <span class="sec-title">8.0 Operation</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.1</span><span class="manual-subsec-title">Production Control</span></div><p class="manual-para">Blow moulding and injection moulding operations are controlled through documented Work Instructions and SOPs:</p><ul class="manual-list"><li>Production SOP — YPP_SOP-PRD-001</li><li>Work Instructions — YPP_WI_PRD-01 to YPP_WI_PRD-07</li><li>In-process quality control — YPP_SOP-IPC-001</li><li>Final quality control — YPP_SOP-FQC-001</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.2</span><span class="manual-subsec-title">Purchasing and Supplier Control</span></div><p class="manual-para">Supplier evaluation, selection, and performance monitoring are governed by YPP_SOP-PUR-001 and YPP_SOP-SUP-001. Incoming materials are inspected per YPP_WI_IQC-01 and results recorded in YPP_REG_IQC-01.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.3</span><span class="manual-subsec-title">Chemical and Hazardous Material Management</span></div><p class="manual-para">Hazardous chemicals and substances are identified, stored, and handled per YPP_SOP-CHM-001 and associated Safety Data Sheets (SDS). Emergency spill response is covered in YPP_SOP-ENV-003.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.4</span><span class="manual-subsec-title">OH&amp;S Operational Controls</span></div><p class="manual-para">OH&amp;S controls are established for all identified significant hazards:</p><ul class="manual-list"><li>Emergency preparedness and response — YPP_SOP-OHS-002</li><li>Fire safety and evacuation — YPP_SOP-OHS-003</li><li>Permit to Work for non-routine activities — YPP_SOP-OHS-004</li><li>Personal Protective Equipment requirements — defined in each WI and SOP</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.5</span><span class="manual-subsec-title">Environmental Operational Controls</span></div><p class="manual-para">Controls for significant environmental aspects are implemented through:</p><ul class="manual-list"><li>Waste segregation and disposal — YPP_SOP-WM-001</li><li>Environmental emergency response — YPP_SOP-ENV-003</li><li>Housekeeping and spill prevention — YPP_SOP-HK-001</li><li>Environmental Management Programme — YPP_SOP-EMP-001</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.6</span><span class="manual-subsec-title">Energy Operational Controls</span></div><p class="manual-para">Operational controls for Significant Energy Uses (SEUs) are defined in YPP_SOP-SEU-001. Energy data is collected monthly and tracked in YPP_REG-ENM-01. Machine operators are trained on energy-efficient operating practices.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-18">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">18</div>
+      <span class="sec-title">9.0 Performance Evaluation</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">9.1</span><span class="manual-subsec-title">Monitoring and Measurement</span></div><p class="manual-para">Key processes are monitored against established KPIs. Performance data is collected and reviewed regularly:</p><ul class="manual-list"><li>Quality KPIs: customer complaint rate, rejection rate, on-time delivery</li><li>Environmental KPIs: waste to landfill (kg/month), energy consumption (kWh/tonne)</li><li>OH&amp;S KPIs: Lost Time Injuries (LTI), near-miss frequency, first aid cases</li><li>Energy KPIs: EnPI (kWh per tonne of output), SEU consumption trends</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">9.2</span><span class="manual-subsec-title">Internal Audit</span></div><p class="manual-para">A comprehensive internal audit programme (YPP_SOP-IA-001) covers all IMS clauses across all four standards at least once per audit cycle. Audit findings are categorised, communicated to process owners, and tracked to closure. Auditor independence is maintained — auditors do not audit their own work.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">9.3</span><span class="manual-subsec-title">Customer Satisfaction</span></div><p class="manual-para">Customer feedback is collected and analysed per YPP_SOP-CCF-001. Complaint trends, resolution times, and customer satisfaction scores are reviewed at Management Review Meetings.</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">9.4</span><span class="manual-subsec-title">Management Review</span></div><p class="manual-para">The Director chairs a Management Review Meeting (YPP_SOP-MR-001) at least annually. Review inputs include:</p><ul class="manual-list"><li>Internal audit results and CAPA status</li><li>KPI performance vs. objectives</li><li>Customer feedback and complaint trends</li><li>Legal compliance status</li><li>Energy performance review and EnPI trends</li><li>Resource adequacy and opportunities for improvement</li></ul></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-19">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">19</div>
+      <span class="sec-title">10.0 Improvement</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">10.1</span><span class="manual-subsec-title">Nonconformance and Corrective Action</span></div><p class="manual-para">All nonconformances — product defects, process deviations, OH&amp;S incidents, environmental incidents, and audit findings — are managed through the CAPA system:</p><ul class="manual-list"><li>Document the nonconformance on NCR form — YPP_FRM-NC-01</li><li>Contain and correct the immediate issue</li><li>Perform root-cause analysis (5-Why, Fishbone, etc.)</li><li>Implement corrective action and verify effectiveness</li><li>Track all CAPAs in YPP_REG-NC-01 to closure</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">10.2</span><span class="manual-subsec-title">Preventive Action and Improvement</span></div><p class="manual-para">Improvement opportunities are identified proactively through:</p><ul class="manual-list"><li>Risks identified in HIRA, EAI, and risk-based thinking reviews</li><li>Management review outputs and employee suggestions</li><li>Internal audit observations (opportunities for improvement)</li><li>Customer feedback, benchmarking, and energy reviews</li><li>Near-miss investigation findings</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">10.3</span><span class="manual-subsec-title">Continual Improvement Commitment</span></div><p class="manual-para">Yash Poly Plast is committed to the continual improvement of IMS effectiveness, efficiency, and overall performance. Improvement actions are tracked, resourced, and reviewed at each Management Review Meeting to ensure they deliver the intended outcomes.</p></div></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-20">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">20</div>
+      <span class="sec-title">Quality Objectives</span>
+      <span class="sec-tag">ISO 9001:2015 §6.2</span>
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">Objective</th><th scope="col">Target</th><th scope="col">Measure</th><th scope="col" style="width:110px">Responsible</th><th scope="col" style="width:100px">Timeframe</th></tr></thead><tbody><tr><td><strong>Maintain customer complaint rate below 2 per 100 orders</strong></td><td>&lt; 2%</td><td>No. of complaints per 100 despatch orders</td><td class="mono">PL Pradhan</td><td class="mono">Quarterly</td></tr><tr><td><strong>Achieve on-time delivery rate ≥ 95%</strong></td><td>≥ 95%</td><td>On-time deliveries / Total deliveries</td><td class="mono">Production Manager</td><td class="mono">Monthly</td></tr><tr><td><strong>Reduce incoming material rejection rate to &lt; 3%</strong></td><td>&lt; 3%</td><td>Rejected lots / Total lots received</td><td class="mono">PL Pradhan</td><td class="mono">Monthly</td></tr><tr><td><strong>Achieve zero Lost Time Injuries (LTI) per year</strong></td><td>0 LTI</td><td>LTI count</td><td class="mono">Safety Officer</td><td class="mono">Annual</td></tr><tr><td><strong>Reduce solid waste to landfill by 15% vs. baseline</strong></td><td>15% reduction</td><td>kg waste to landfill / month</td><td class="mono">EHS Officer</td><td class="mono">Annual</td></tr><tr><td><strong>Reduce energy consumption per tonne of output by 10%</strong></td><td>10% reduction in EnPI</td><td>kWh per tonne of finished product</td><td class="mono">Maintenance Manager</td><td class="mono">Annual</td></tr><tr><td><strong>Complete 100% of planned internal audits on schedule</strong></td><td>100%</td><td>Audits completed / Audits planned</td><td class="mono">PL Pradhan</td><td class="mono">Annual</td></tr><tr><td><strong>Close all CAPA items within defined target dates</strong></td><td>100% on-time closure</td><td>CAPAs closed on time / Total CAPAs raised</td><td class="mono">PL Pradhan</td><td class="mono">Quarterly</td></tr><tr><td><strong>Maintain 100% compliance with applicable legal requirements</strong></td><td>0 legal non-compliances</td><td>Legal compliance audit score</td><td class="mono">PL Pradhan</td><td class="mono">Annual</td></tr><tr><td><strong>Train all new employees on IMS awareness within 30 days of joining</strong></td><td>100% within 30 days</td><td>Employees trained on time / New joiners</td><td class="mono">HR / MR</td><td class="mono">Ongoing</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-21">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">21</div>
+      <span class="sec-title">Annexure I — Applicable Standards and Clauses</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">Standard</th><th scope="col">Title</th><th scope="col">Scope of Application</th></tr></thead><tbody><tr><td>ISO 9001:2015</td><td>Quality Management Systems — Requirements</td><td>Full (excl. Cl. 8.3 Design)</td></tr><tr><td>ISO 14001:2015</td><td>Environmental Management Systems — Requirements</td><td>Full</td></tr><tr><td>ISO 45001:2018</td><td>OH&amp;S Management Systems — Requirements</td><td>Full</td></tr><tr><td>ISO 50001:2018</td><td>Energy Management Systems — Requirements</td><td>Full</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-22">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">22</div>
+      <span class="sec-title">Annexure II — IMS Document Master List (Summary)</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">Level</th><th scope="col">Document Type</th><th scope="col">Example Codes</th></tr></thead><tbody><tr><td>Level 1</td><td>IMS Manual</td><td>YPP_QMP-001</td></tr><tr><td>Level 2</td><td>Standard Operating Procedures</td><td>YPP_SOP-PRD-001 to YPP_SOP-DC-001</td></tr><tr><td>Level 3</td><td>Work Instructions</td><td>YPP_WI_PRD-01 to YPP_WI_IQC-01</td></tr><tr><td>Level 4</td><td>Forms &amp; Registers</td><td>YPP_FRM-*, YPP_REG-*</td></tr><tr><td>Policy</td><td>Policy Documents</td><td>YPP_QP-9001-001, YPP_EMP-POL-001, YPP_OHS-POL-001, YPP_ENP-POL-001</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-23">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">23</div>
+      <span class="sec-title">Annexure III — Key Customers and Products</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">Customer</th><th scope="col">Products Supplied</th><th scope="col">Application</th></tr></thead><tbody><tr><td>Arabian Petroleum</td><td>HDPE Cans (5L, 10L, 20L)</td><td>Industrial lubricants packaging</td></tr><tr><td>Apar Industries</td><td>HDPE Bottles (1L, 2L)</td><td>Transformer oil &amp; specialty chemicals</td></tr><tr><td>Exsan Industries</td><td>HDPE Containers</td><td>Industrial chemicals packaging</td></tr><tr><td>[Other customers]</td><td>HDPE Bottles and Cans</td><td>[As per order specifications]</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-24">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">24</div>
+      <span class="sec-title">Annexure IV — Organisational Chart — IMS Functions</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><p class="manual-para">Director: Tarun Mishra
+└─ Management Representative: PL Pradhan (IMS, Quality, EHS)
+   ├─ Production Manager (Blow Moulding, Injection Moulding)
+   ├─ Quality Control (IQC, IPC, FQC)
+   ├─ Maintenance &amp; Calibration
+   ├─ Purchase &amp; Stores
+   ├─ Warehouse &amp; Despatch
+   └─ HR &amp; Administration</p></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-25">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">25</div>
+      <span class="sec-title">Annexure V — Significant Environmental Aspects</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">Aspect</th><th scope="col">Environmental Impact</th><th scope="col">Control Document</th></tr></thead><tbody><tr><td>Plastic scrap / trim waste</td><td>Solid waste, land pollution</td><td>YPP_SOP-WM-001</td></tr><tr><td>Energy consumption (electricity)</td><td>GHG emissions</td><td>YPP_SOP-SEU-001</td></tr><tr><td>Chemical storage (lubricants, solvents)</td><td>Soil / water contamination</td><td>YPP_SOP-CHM-001</td></tr><tr><td>Wastewater (cooling, cleaning)</td><td>Water pollution</td><td>Drainage controls, no untreated discharge</td></tr><tr><td>Noise from machinery</td><td>Noise pollution / hearing loss</td><td>Engineering controls + PPE (YPP_SOP-OHS-001)</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-26">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">26</div>
+      <span class="sec-title">Annexure VI — Amendment History</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">Rev.</th><th scope="col">Date</th><th scope="col">Description</th><th scope="col">Approved By</th></tr></thead><tbody><tr><td>1.0</td><td>2026-04-24</td><td>Initial issue — Integrated Management System Manual for Yash Poly Plast</td><td>Tarun Mishra</td></tr></tbody></table></div></div>
+    </div>
+  </div>
+
+  <div class="section" id="sec-27">
+    <div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+      <div class="sec-num">27</div>
+      <span class="sec-title">Approval &amp; Signatures</span>
+      
+      <span class="sec-chevron">▾</span>
+    </div>
+    <div class="sec-collapse">
+    <div class="sec-body"><div class="sig-grid"><div class="sig-card"><div class="sig-role">Document Author</div><div class="sig-fields"><div><div class="sig-field-lbl">Printed Name</div><div class="sig-prefill">PL Pradhan</div></div><div><div class="sig-field-lbl">Signature</div><div class="sig-line"></div></div><div><div class="sig-field-lbl">Job Title</div><div class="sig-prefill">Management Representative</div></div><div><div class="sig-field-lbl">Date</div><div class="sig-prefill">2026-04-24</div></div></div></div><div class="sig-card"><div class="sig-role">Document Approver</div><div class="sig-fields"><div><div class="sig-field-lbl">Printed Name</div><div class="sig-prefill">Tarun Mishra</div></div><div><div class="sig-field-lbl">Signature</div><div class="sig-line"></div></div><div><div class="sig-field-lbl">Job Title</div><div class="sig-prefill">Director</div></div><div><div class="sig-field-lbl">Date</div><div class="sig-prefill">2026-04-24</div></div></div></div></div></div>
+    </div>
+  </div>
+  <div class="doc-footer">
+    <span class="footer-ref">YPP_QMP-001 &nbsp;·&nbsp; v1.0 &nbsp;·&nbsp; ISO 9001:2015 | ISO 14001:2015 | ISO 45001:2018 | ISO 50001:2018</span>
+    <span>⚠ Uncontrolled when printed &nbsp;·&nbsp; Verify current revision before use</span>
+    <span>Generated 29 Apr 2026</span>
+  </div>
+</div>
+<div class="edit-toolbar" id="etb" style="display:none">
+  <button class="etb-btn etb-edit" id="etbEdit" onclick="etbToggleEdit()">✏ Edit</button>
+  <button class="etb-btn etb-save" id="etbSave" onclick="etbSave()" style="display:none">💾 Save</button>
+  <button class="etb-btn etb-cancel" id="etbCancel" onclick="etbCancelEdit()" style="display:none">✕ Cancel</button>
+  <span class="etb-status" id="etbStatus"></span>
+</div>
+<script>
+(function(){
+  var EDITABLE_SEL = 'td, th, p, li, .flow-step-text, .callout-txt, .sig-prefill, .ctrl-val, .banner-title, .banner-org';
+  var _origMap = {};
+  var _editing = false;
+  function etbStatus(msg, col){ var s=document.getElementById('etbStatus'); s.textContent=msg; s.style.color=col||'rgba(255,255,255,.65)'; }
+  window.etbToggleEdit = function(){
+    _editing = true;
+    var els = document.querySelectorAll(EDITABLE_SEL);
+    els.forEach(function(el){ _origMap[el] = el.innerHTML; el.setAttribute('contenteditable','true'); });
+    document.getElementById('etbEdit').style.display='none';
+    document.getElementById('etbSave').style.display='inline-flex';
+    document.getElementById('etbCancel').style.display='inline-flex';
+    document.getElementById('etbStatus').style.display='inline';
+    etbStatus('Editing — click any cell or text to modify','rgba(45,139,139,1)');
+  };
+  window.etbCancelEdit = function(){
+    var els = document.querySelectorAll('[contenteditable]');
+    els.forEach(function(el){ if(_origMap[el]!==undefined) el.innerHTML=_origMap[el]; el.removeAttribute('contenteditable'); });
+    _origMap = {}; _editing = false;
+    document.getElementById('etbEdit').style.display='';
+    document.getElementById('etbSave').style.display='none';
+    document.getElementById('etbCancel').style.display='none';
+    etbStatus('');
+    document.getElementById('etbStatus').style.display='none';
+  };
+  window.etbSave = function(){
+    if(window.location.protocol === 'file:'){
+      document.getElementById('etbStatus').style.display='inline';
+      etbStatus('Open via QMS server to save  http://localhost:8765','rgba(184,48,48,1)');
+      return;
+    }
+    var docCode = document.querySelector('.document').getAttribute('data-doc-code') || '';
+    var els = document.querySelectorAll('[contenteditable]');
+    els.forEach(function(el){ el.removeAttribute('contenteditable'); });
+    /* Reset toolbar to clean state BEFORE capturing outerHTML */
+    /* so the saved file always loads with only the Edit button visible */
+    document.getElementById('etbEdit').style.display='';
+    document.getElementById('etbSave').style.display='none';
+    document.getElementById('etbCancel').style.display='none';
+    document.getElementById('etbStatus').style.display='none';
+    document.getElementById('etbStatus').textContent='';
+    var html = '<!DOCTYPE html>' + document.documentElement.outerHTML;
+    /* NOW show Saving... in live DOM (not persisted to disk) */
+    document.getElementById('etbStatus').style.display='inline';
+    etbStatus('Saving…','rgba(255,220,80,1)');
+    fetch('/api/save-edited/' + docCode, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({html: html})
+    }).then(function(r){ return r.json(); }).then(function(d){
+      if(d.ok){
+        etbStatus('Saved — v' + (d.new_version||'') + ' ✓','rgba(26,112,64,1)');
+        setTimeout(function(){ window.location.reload(); }, 1500);
+      } else {
+        etbStatus('Error: ' + (d.error||'unknown'),'rgba(184,48,48,1)');
+        var els2 = document.querySelectorAll(EDITABLE_SEL);
+        els2.forEach(function(el){ el.setAttribute('contenteditable','true'); });
+      }
+    }).catch(function(err){
+      etbStatus('Network error','rgba(184,48,48,1)');
+      var els2 = document.querySelectorAll(EDITABLE_SEL);
+      els2.forEach(function(el){ el.setAttribute('contenteditable','true'); });
+    });
+    _origMap = {}; _editing = false;
+    document.getElementById('etbEdit').style.display='';
+    document.getElementById('etbSave').style.display='none';
+    document.getElementById('etbCancel').style.display='none';
+  };
+})();
+// Triple-click footer to toggle edit mode
+(function(){
+  var footer = document.querySelector('.doc-footer');
+  if(!footer) return;
+  footer.style.cursor = 'default';
+  footer.addEventListener('click', function(ev){
+    if(ev.detail === 3){
+      var btn = document.getElementById('etbEdit');
+      var on = btn.style.display !== 'none';
+      btn.style.display = on ? 'none' : 'inline-flex';
+      var t = document.createElement('div');
+      t.textContent = on ? 'Edit mode disabled' : 'Edit mode enabled';
+      t.style.cssText = 'position:fixed;bottom:70px;right:18px;z-index:10001;background:rgba(15,23,32,.92);color:#fff;padding:8px 18px;border-radius:6px;font-size:12px;font-weight:600;letter-spacing:.3px;opacity:1;transition:opacity .5s';
+      document.body.appendChild(t);
+      setTimeout(function(){ t.style.opacity='0'; }, 1500);
+      setTimeout(function(){ t.remove(); }, 2100);
+    }
+  });
+})();
+// Section collapse/expand toggle
+window.secToggle = function(hdr){
+  hdr.classList.toggle('collapsed');
+};
+// Floating back-to-TOC button
+(function(){
+  var fab = document.createElement('button');
+  fab.className = 'fab-toc';
+  fab.innerHTML = '&#9650;';
+  fab.title = 'Back to Table of Contents';
+  fab.onclick = function(){
+    var toc = document.getElementById('sec-2');
+    if(toc) toc.scrollIntoView({behavior:'smooth',block:'start'});
+    else window.scrollTo({top:0,behavior:'smooth'});
+  };
+  document.body.appendChild(fab);
+  var tocEl = document.getElementById('sec-2');
+  window.addEventListener('scroll', function(){
+    if(!tocEl) return;
+    var r = tocEl.getBoundingClientRect();
+    if(r.bottom < 0){
+      fab.classList.add('visible');
+    } else {
+      fab.classList.remove('visible');
+    }
+  }, {passive:true});
+})();
+</script>
+<div class="wm"><div class="wm-inner"><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div><div class="wm-row"><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span><span class="wm-txt">CONFIDENTIAL</span></div></div></div>
+</div>
+<div class="lang-section" data-lang="hi">
+<div class="document" data-doc-code="YPP_QMP-001">
+<div class="banner">
+<div class="banner-inner">
+<div class="banner-header">
+<div class="banner-top-row">
+<div class="banner-logo-left"></div>
+<div class="banner-eyebrow"><span>आईएसओ 9001:2015 | आईएसओ 14001:2015 | आईएसओ 45001:2018 | आईएसओ 50001:2018</span><span class="ey-sep"></span><span>गुणवत्ता/आईएमएस मैनुअल</span><span class="ey-sep"></span><span>खंड 4.0 - 10.0 - एकीकृत प्रबंधन प्रणाली मैनुअल</span></div>
+</div>
+<div class="banner-title">एकीकृत प्रबंधन प्रणाली मैनुअल</div>
+<div class="banner-bottom-row">
+<div class="banner-org">शीर्ष प्रबंधन</div>
+<div class="doc-code-badge">YPP_QMP-001 |  v1.0</div>
+</div>
+</div>
+<div class="banner-qr-right"><img alt="QR" class="banner-qr-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANcAAADXCAIAAAAGH1PiAAAFMklEQVR4nO3dMZLbOBAF0PHWHoCh073/oZxuyBuMcwaowgCND1DvpZYoSvMLZBsE+tf39/cXRP2T/XiQQrZgLCRPCsmTQvKkkDwpJE8KyZNC8qSQPCkkTwrJk0LypJC8f7teff3+72uJ+/8/P37v4yTbh6p7cZereeSuf33oevFEXT+OsZA8KSRPCsmTQk6rTh7qbs9HXtx1a98+8uPFXd+3ruC4er7+nn/BB2MheVJInhSSJ4UcXp2M3J/W3ekvu7XvKmW6zuoeKKFGJnjq/oJtxkLypJA8KSRPCnlXdZIycVqibeTGv+4kr7LnzZYxFpInheRJIXlSSN4bqpOH9u153TKUrrMaKUfu0OKYOsZC8qSQPCkkTwp5V3WSuhGeOA8xsuC8fVbLDnXiX9BYSJ4UkieF5Ekhh1cnyzaAmqiudumasxlZhnKVPRWWYiwkTwrJk0LypJC8X0f0ip94Ez1xR6+JpzGRJ7vgJ1yRyZNC8qSQw/ud1PXS6Fqlscmd/sSNxe6yImnPAstYSJ4UkieF5Ekhp82dTGz8V7dp7sQtdSee5ER3We2y7Hd+MBaSJ4XkSSF5Usirq5MuE5+wSnX4eEFH96tsf4E2YyF5UkieFJInhRxenUycLFlm4nzAxFmKLqmJpZGzajMWkieF5EkheVLIq3cUnthSsK4qWnaSI5/btmwLr7oJHmMheVJInhSSJ4V80pNdE//XPlWsbLKypG3kKyx7Nu/BWEieFJInheRJIafNnSzrcN5+b90kzYhN1src5k7gB1yRyZNC8qSQD95RuF1w1KkrRyZu9Hv3NHZsH2rZb2XPLs7mikyeFJInhbxrVXzXi+smAJbtNJXq/nKFdtaqW29vLCRPCsmTQvKkkE/qd7KsZ2L7rLre23WoPVu4X6Gn77oYC8mTQvKkkDwp5LTq5CG1/nziNMwmfeY3qTAmHsrcCYdxRSZPCsmTQvI23bOr7lGuutbxDvX109/KWEieFJInheRJIe+qTh7qugSmFn5vsilyW936nrp5JmMheVJInhSSJ4W8uhvjsjv9PbvQj2yKfK/a57j94vY3mnjOxkLypJA8KSRPCnlXdTLy3/R1Dc9TLRTbX7D93k26T3axZxdnc0UmTwrJk0LeVZ08THx2K9UzcaTg6DqNK/RIVdtI25UuxkLypJA8KSRPCnn1nl2b1C7LFqlsMsNxr1rCojrhVVyRyZNC8qSQd3VjPGIuoW5L3WW7INdJ7b5sLCRPCsmTQvKkkA/uFX/i0opNJoeuPR4D0++EV3FFJk8KyZNCXl2djLx3Wc+STeqee9VsUPtzl/19H4yF5EkheVJInhTy6lXxy56w6jryxHXvdS1brlULTTYpsIyF5EkheVJInhRy+Kr4Zfbs2d515FQ1dq86lLkTzuaKTJ4UkieFnDZ3klqevawcmThZsmzN/F3WQnHZ4nxjIXlSSJ4UkieFHP5kV93EQ9e/Tlw8Ubf+fFnf9bZlS3a6GAvJk0LypJA8KeSTesU/bPJI1UjDwfbn1tUuXY7Y5tlYSJ4UkieF5EkhH7wqfkTXUvaRB5/anzux/mirm7QY+SUfrDvhbK7I5EkheVJI3pHVSd1zUJusSukysWhIdY4xFpInheRJIXlSyLuqkyNWS3S9eNmhrlAjma7TqKtdjIXkSSF5UkieFHJ4dbJsC69Ul8C6JSwndoO/rYrnxVyRyZNC8qSQvDP6nfBuxkLypJA8KSRPCsmTQvKkkDwpJE8KyZNC8qSQPCkkTwrJk0LypJCvuL9TD9bEJpv03gAAAABJRU5ErkJggg=="/><span class="banner-qr-lbl">YPP_QMP-001</span></div>
+</div>
+</div>
+<div class="ctrl-strip"><div class="ctrl-cell"><div class="ctrl-lbl">दस्तावेज़ प्रकार</div><div class="ctrl-val">गुणवत्ता/आईएमएस मैनुअल</div></div><div class="ctrl-cell"><div class="ctrl-lbl">दस्तावेज़ स्वामी</div><div class="ctrl-val">पीएल प्रधान</div></div><div class="ctrl-cell"><div class="ctrl-lbl">द्वारा स्वीकृत</div><div class="ctrl-val">तरूण मिश्रा</div></div><div class="ctrl-cell"><div class="ctrl-lbl">प्रभावी तिथि</div><div class="ctrl-val">2026-04-24</div></div><div class="ctrl-cell"><div class="ctrl-lbl">अगली समीक्षा</div><div class="ctrl-val">अप्रैल 2027</div></div><div class="ctrl-cell"><div class="ctrl-lbl">कॉपी स्थिति</div><div class="ctrl-val">नियंत्रित</div></div></div>
+<div class="section" id="sec-1">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">1</div>
+<span class="sec-title">दायरा एवं उद्देश्य</span>
+<span class="sec-tag">आईएसओ 9001:2015 | आईएसओ 14001:2015 | आईएसओ 45001:2018 | आईएसओ 50001:2018</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="scope-grid"><div class="scope-card scope-card-wide"><div class="scope-lbl">उद्देश्य</div><p class="scope-txt">यह आईएमएस मैनुअल यश पॉली प्लास्ट इंटीग्रेटेड मैनेजमेंट सिस्टम का शीर्ष दस्तावेज है। यह ISO 9001:2015, ISO 14001:2015, ISO 45001:2018, और ISO 50001:2018 के लिए संगठनात्मक संदर्भ, नेतृत्व प्रतिबद्धता, कार्यक्षेत्र और क्लॉज-दर-क्लॉज अनुरूपता को परिभाषित करता है। सभी निचले स्तर के दस्तावेज़ - एसओपी, कार्य निर्देश, फॉर्म और रजिस्टर - इस मैनुअल से अपना अधिकार प्राप्त करते हैं।</p></div><div class="scope-card scope-card-wide"><div class="scope-lbl">आईएमएस का दायरा</div><p class="scope-txt">यश पॉली प्लास्ट औद्योगिक और उपभोक्ता अनुप्रयोगों के लिए एचडीपीई बोतलें और डिब्बे डिजाइन, निर्माण और आपूर्ति करता है। आईएमएस नवी मुंबई सुविधा में ब्लो मोल्डिंग, इंजेक्शन मोल्डिंग, कच्चे माल का भंडारण, गुणवत्ता नियंत्रण, रखरखाव, भंडारण और प्रेषण को कवर करता है। खंड 8.3 (डिज़ाइन और विकास) को बाहर रखा गया है - उत्पाद ग्राहक-निर्दिष्ट डिज़ाइन के अनुसार निर्मित किए जाते हैं।</p></div><div class="scope-card"><div class="scope-lbl">||| पर लागू होता है यश पॉली प्लास्ट सुविधा के सभी कर्मचारी, ठेकेदार और आगंतुक। सभी विभागों पर लागू: उत्पादन, गुणवत्ता, रखरखाव, खरीद, स्टोर, गोदाम और प्रशासन।</div><p class="scope-txt">प्रबंधन प्रतिनिधि</p></div><div class="scope-card"><div class="scope-lbl">पीएल प्रधान को आईएमएस दान, रखरखाव और निरंतर सुधार के लिए पूर्ण अधिकार के साथ प्रबंधन प्रतिनिधि के रूप में नियुक्त किया गया है। सीधे निदेशक (तरुण मिश्रा) को रिपोर्ट करता है।</div><p class="scope-txt">सामग्री तालिका</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-2">
+<div class="sec-hdr">
+<div class="sec-num">2</div>
+<span class="sec-title">नहीं</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table class="toc-table"><thead><tr><th style="width:50px;text-align:center">अनुभाग शीर्षक</th><th>संदर्भ</th><th style="width:90px;text-align:right">प्रक्रिया दृष्टिकोण और पीडीसीए चक्र</th></tr></thead><tbody><tr><td class="toc-sec-num">3</td><td><a href="#sec-3">मानक संदर्भ</a></td><td class="toc-tag">3</td></tr><tr><td class="toc-sec-num">4</td><td><a href="#sec-4">नियम, परिभाषाएँ और संक्षिप्ताक्षर</a></td><td class="toc-tag">4</td></tr><tr><td class="toc-sec-num">5</td><td><a href="#sec-5">नीति वक्तव्य</a></td><td class="toc-tag">5</td></tr><tr><td class="toc-sec-num">6</td><td><a href="#sec-6">प्रबंधन प्रतिनिधि</a></td><td class="toc-tag">6</td></tr><tr><td class="toc-sec-num">7</td><td><a href="#sec-7">दस्तावेज़ क्रमांकन कन्वेंशन</a></td><td class="toc-tag">7</td></tr><tr><td class="toc-sec-num">8</td><td><a href="#sec-8">दस्तावेज़ों का वितरण एवं नियंत्रण</a></td><td class="toc-tag">8</td></tr><tr><td class="toc-sec-num">9</td><td><a href="#sec-9">संशोधन एवं परिवर्तन प्रबंधन</a></td><td class="toc-tag">9</td></tr><tr><td class="toc-sec-num">10</td><td><a href="#sec-10">दस्तावेज़ पदानुक्रम</a></td><td class="toc-tag">10</td></tr><tr><td class="toc-sec-num">11</td><td><a href="#sec-11">1.0 इस मैनुअल के बारे में</a></td><td class="toc-tag">11</td></tr><tr><td class="toc-sec-num">12</td><td><a href="#sec-12">4.0 संगठन का संदर्भ</a></td><td class="toc-tag">Clause 1.0</td></tr><tr><td class="toc-sec-num">13</td><td><a href="#sec-13">5.0 नेतृत्व</a></td><td class="toc-tag">Clause 4.0</td></tr><tr><td class="toc-sec-num">14</td><td><a href="#sec-14">6.0 योजना</a></td><td class="toc-tag">Clause 5.0</td></tr><tr><td class="toc-sec-num">15</td><td><a href="#sec-15">7.0 समर्थन</a></td><td class="toc-tag">Clause 6.0</td></tr><tr><td class="toc-sec-num">16</td><td><a href="#sec-16">8.0 ऑपरेशन</a></td><td class="toc-tag">Clause 7.0</td></tr><tr><td class="toc-sec-num">17</td><td><a href="#sec-17">9.0 कार्य परिणाम मूल्यांकन</a></td><td class="toc-tag">Clause 8.0</td></tr><tr><td class="toc-sec-num">18</td><td><a href="#sec-18">10.0 सुधार</a></td><td class="toc-tag">Clause 9.0</td></tr><tr><td class="toc-sec-num">19</td><td><a href="#sec-19">गुणवत्ता उद्देश्य</a></td><td class="toc-tag">Clause 10.0</td></tr><tr><td class="toc-sec-num">20</td><td><a href="#sec-20">अनुलग्नक I - लागू मानक और खंड</a></td><td class="toc-tag">6.2</td></tr><tr><td class="toc-sec-num">21</td><td><a href="#sec-21">परिशिष्ट</a></td><td class="toc-tag">अनुलग्नक II - आईएमएस दस्तावेज़ मास्टर सूची (सारांश)</td></tr><tr><td class="toc-sec-num">22</td><td><a href="#sec-22">परिशिष्ट</a></td><td class="toc-tag">अनुबंध III - प्रमुख ग्राहक और उत्पाद</td></tr><tr><td class="toc-sec-num">23</td><td><a href="#sec-23">परिशिष्ट</a></td><td class="toc-tag">अनुबंध IV - संगठनात्मक चार्ट - आईएमएस कार्य</td></tr><tr><td class="toc-sec-num">24</td><td><a href="#sec-24">परिशिष्ट</a></td><td class="toc-tag">अनुलग्नक V - महत्वपूर्ण पर्यावरणीय पहलू</td></tr><tr><td class="toc-sec-num">25</td><td><a href="#sec-25">परिशिष्ट</a></td><td class="toc-tag">अनुलग्नक VI - संशोधन इतिहास</td></tr><tr><td class="toc-sec-num">26</td><td><a href="#sec-26">परिशिष्ट</a></td><td class="toc-tag">प्रक्रिया दृष्टिकोण और पीडीसीए चक्र</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-3">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">3</div>
+<span class="sec-title">आईएसओ 9001:2015 §0.3</span>
+<span class="sec-tag">▾</span>
+<span class="sec-chevron">यश पॉली प्लास्ट आईएसओ 9001:2015, आईएसओ 14001:2015, आईएसओ 45001:2018 और आईएसओ 50001:2018 के अनुसार प्रक्रिया दृष्टिकोण को अपनाता है। सुसंगत और पूर्वानुमानित परिणाम प्राप्त करने के लिए सभी गतिविधियों को पीडीसीए (प्लान-डू-चेक-एक्ट) चक्र के भीतर परस्पर संबंधित प्रक्रियाओं के रूप में प्रबंधित किया जाता है।</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><p class="manual-para">📋 योजना</p><div class="principles-grid" style="grid-template-columns:repeat(4,1fr)"><div class="principle-card"><div class="principle-title">आईएमएस उद्देश्य स्थापित करें; पर्यावरणीय पहलुओं, खतरों और ऊर्जा उपयोग की पहचान करना; कानूनी दायित्व निर्धारित करें; और ग्राहकों की आवश्यकताओं और इच्छुक पार्टी की अपेक्षाओं के अनुरूप परिणाम देने के लिए प्रक्रियाओं की योजना बनाएं।</div><p class="principle-text">⚙️ करो</p></div><div class="principle-card"><div class="principle-title">नियोजित एसओपी और कार्य निर्देशों के अनुसार नियोजित प्रक्रियाएं - उत्पादन, गुणवत्ता नियंत्रण, आपूर्तिकर्ता प्रबंधन, प्रशिक्षण, हाउसकीपिंग, अपशिष्ट प्रबंधन, ऊर्जा निगरानी - करें और निष्पादित करें।</div><p class="principle-text">🔍चेक करें</p></div><div class="principle-card"><div class="principle-title">आंतरिक ऑडिट, समीक्षा बैठकों, अंशांकन, ग्राहक प्रतिक्रिया, पर्यावरण निगरानी और ऊर्जा कार्य परिणाम संकेतकों के माध्यम से नीतियों, उद्देश्यों और कानूनी आवश्यकताओं के विरुद्ध प्रक्रिया कार्य परिणामों की निगरानी और माप करें।</div><p class="principle-text">📈 अधिनियम</p></div><div class="principle-card"><div class="principle-title">सुधारात्मक और निवारक कार्रवाई करें; आईएमएस प्रभावशीलता को बढ़ाने के लिए सीएपीए, समीक्षा बैठक के आउटपुट और ऊर्जा कार्य परिणामों की समीक्षा के माध्यम से निरंतर सुधार चलाएं।</div><p class="principle-text">मानक संदर्भ</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-4">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">4</div>
+<span class="sec-title">§2.0</span>
+<span class="sec-tag">▾</span>
+<span class="sec-chevron">मानक</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col" style="width:160px">शीर्षक</th><th scope="col">गुणवत्ता प्रबंधन प्रणालियाँ - आवश्यकताएँ</th></tr></thead><tbody><tr><td class="mono" style="white-space:nowrap"><strong>ISO 9001:2015</strong></td><td>Quality management systems — Requirements</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 14001:2015</strong></td><td>पर्यावरण प्रबंधन प्रणालियाँ - उपयोग के लिए मार्गदर्शन के साथ आवश्यकताएँ</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 45001:2018</strong></td><td>व्यावसायिक स्वास्थ्य और सुरक्षा प्रबंधन प्रणालियाँ - उपयोग के लिए मार्गदर्शन के साथ आवश्यकताएँ</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 50001:2018</strong></td><td>ऊर्जा प्रबंधन प्रणालियाँ - उपयोग के लिए मार्गदर्शन के साथ आवश्यकताएँ</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 19011:2018</strong></td><td>प्रबंधन प्रणालियों की लेखापरीक्षा के लिए दिशानिर्देश</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>ISO 9000:2015</strong></td><td>गुणवत्ता प्रबंधन प्रणालियाँ - बुनियादी बातें और शब्दावली</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>कारखाना अधिनियम, 1948</strong></td><td>फ़ैक्टरी संचालन, श्रमिक सुरक्षा और कामकाजी परिस्थितियों को नियंत्रित करने वाला भारतीय कानून</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>पर्यावरण संरक्षण अधिनियम, 1986</strong></td><td>पर्यावरण संरक्षण एवं प्रदूषण नियंत्रण हेतु भारतीय विधान</td></tr><tr><td class="mono" style="white-space:nowrap"><strong>बीआईएस मानक</strong></td><td>एचडीपीई पैकेजिंग उत्पादों के लिए लागू भारतीय मानक ब्यूरो</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-5">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">5</div>
+<span class="sec-title">नियम, परिभाषाएँ और संक्षिप्ताक्षर</span>
+<span class="sec-tag">§3.0</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col" style="width:100px">संक्षिप्तीकरण</th><th scope="col">फुल फॉर्म</th></tr></thead><tbody><tr><td class="mono"><strong>आईएमएस</strong></td><td>एकीकृत प्रबंधन प्रणाली</td></tr><tr><td class="mono"><strong>क्यूएमएस</strong></td><td>गुणवत्ता प्रबंधन प्रणाली</td></tr><tr><td class="mono"><strong>ईएमएस</strong></td><td>पर्यावरण प्रबंधन प्रणाली</td></tr><tr><td class="mono"><strong>ओह एंड एस</strong></td><td>व्यावसायिक स्वास्थ्य एवं सुरक्षा</td></tr><tr><td class="mono"><strong>एनएमएस</strong></td><td>ऊर्जा प्रबंधन प्रणाली</td></tr><tr><td class="mono"><strong>एमआर</strong></td><td>प्रबंधन प्रतिनिधि</td></tr><tr><td class="mono"><strong>एमआरएम</strong></td><td>प्रबंधन समीक्षा बैठक</td></tr><tr><td class="mono"><strong>एसओपी</strong></td><td>मानक संचालन प्रक्रिया</td></tr><tr><td class="mono"><strong>WI</strong></td><td>कार्य निर्देश</td></tr><tr><td class="mono"><strong>एफआरएम</strong></td><td>फॉर्म/अभिलेख</td></tr><tr><td class="mono"><strong>रेग</strong></td><td>रजिस्टर करें</td></tr><tr><td class="mono"><strong>कैपा</strong></td><td>सुधारात्मक कार्रवाई और निवारक कार्रवाई</td></tr><tr><td class="mono"><strong>एनसीआर</strong></td><td>गैर-अनुरूपता रिपोर्ट</td></tr><tr><td class="mono"><strong>हीरा</strong></td><td>खतरे की पहचान और जोखिम मूल्यांकन</td></tr><tr><td class="mono"><strong>ईएआई</strong></td><td>पर्यावरणीय पहलू और प्रभाव</td></tr><tr><td class="mono"><strong>एसईयू</strong></td><td>महत्वपूर्ण ऊर्जा उपयोग</td></tr><tr><td class="mono"><strong>एनपीआई</strong></td><td>ऊर्जा कार्य परिणाम सूचक</td></tr><tr><td class="mono"><strong>आईक्यूसी</strong></td><td>आने वाली गुणवत्ता नियंत्रण</td></tr><tr><td class="mono"><strong>आईपीसी</strong></td><td>इन-प्रोसेस नियंत्रण</td></tr><tr><td class="mono"><strong>एफक्यूसी</strong></td><td>अंतिम गुणवत्ता नियंत्रण</td></tr><tr><td class="mono"><strong>पीपीई</strong></td><td>व्यक्तिगत सुरक्षा उपकरण</td></tr><tr><td class="mono"><strong>एचडीपीई</strong></td><td>उच्च घनत्व पॉलीथीन</td></tr><tr><td class="mono"><strong>आरएम</strong></td><td>कच्चा माल</td></tr><tr><td class="mono"><strong>एफजी</strong></td><td>तैयार माल</td></tr><tr><td class="mono"><strong>एमएसडीएस</strong></td><td>सामग्री सुरक्षा डेटा शीट / एसडीएस</td></tr><tr><td class="mono"><strong>पीटीडब्ल्यू</strong></td><td>काम करने की अनुमति</td></tr><tr><td class="mono"><strong>केपीआई</strong></td><td>मुख्य कार्य परिणाम संकेतक</td></tr><tr><td class="mono"><strong>वाईपीपी</strong></td><td>यश पॉली प्लास्ट (दस्तावेज़ उपसर्ग)</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-6">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">6</div>
+<span class="sec-title">नीति वक्तव्य</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="ncr-block"><div class="ncr-block-lbl">नीति वक्तव्य</div><p style="margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--ink)">यश पॉली प्लास्ट पर्यावरण की रक्षा करते हुए और प्रत्येक कर्मचारी के स्वास्थ्य और सुरक्षा को सुनिश्चित करते हुए उच्च गुणवत्ता वाली एचडीपीई बोतलें और डिब्बे वितरित करने के लिए प्रतिबद्ध है।</p><p style="margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--ink)">हमारी एकीकृत प्रबंधन प्रणाली (आईएमएस) आईएसओ 9001:2015, आईएसओ 14001:2015, आईएसओ 45001:2018 और आईएसओ 50001:2018 के अनुरूप स्थापित की गई है।</p><p style="margin-bottom:10px;font-size:13px;line-height:1.65;color:var(--ink)">हम प्रतिज्ञा करते हैं: ग्राहकों की आवश्यकताओं को पूरा करेंगे और उत्पाद की गुणवत्ता में लगातार सुधार करेंगे; प्रदूषण को रोकें और हमारे पर्यावरणीय पदचिह्न को कम करें; खतरों को खत्म करना और हमारे कार्यबल के लिए ओएच एंड एस जोखिमों को कम करना; ऊर्जा कार्य परिणामों में सुधार और ऊर्जा की तीव्रता कम करना; सभी लागू कानूनी और नियामक आवश्यकताओं का अनुपालन करें; और सभी कर्मचारियों को हमारी प्रबंधन प्रणालियों के निरंतर सुधार में संलग्न करें।</p></div></div>
+</div>
+</div>
+<div class="section" id="sec-7">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">7</div>
+<span class="sec-title">प्रबंधन प्रतिनिधि</span>
+<span class="sec-tag">आईएसओ 9001:2015 §5.3</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="ncr-block"><div class="ncr-block-lbl">पीएल प्रधान - प्रबंधन प्रतिनिधि</div><ul class="manual-list"><li>यह सुनिश्चित करना कि आईएमएस प्रक्रियाएं स्थापित, निष्पादित और रखरखाव की जाती हैं</li><li>आईएमएस कार्य परिणामों और सुधार के अवसरों पर शीर्ष प्रबंधन को रिपोर्ट करना</li><li>सभी कर्मचारियों में ग्राहक, पर्यावरण, ओएच एंड एस और ऊर्जा आवश्यकताओं के बारे में जागरूकता को बढ़ावा देना</li><li>बाहरी प्रमाणन निकायों और लेखा परीक्षकों के साथ प्राथमिक संपर्क के रूप में कार्य करना</li><li>आंतरिक लेखापरीक्षा और समीक्षा बैठकों का समन्वय करना</li><li>सीएपीए की प्रभावशीलता और समय पर समापन की निगरानी करना</li><li>दस्तावेज़ मास्टर सूची को बनाए रखना और दस्तावेज़ संशोधनों को नियंत्रित करना</li></ul></div></div>
+</div>
+</div>
+<div class="section" id="sec-8">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">8</div>
+<span class="sec-title">दस्तावेज़ क्रमांकन कन्वेंशन</span>
+<span class="sec-tag">आईएसओ 9001:2015 §7.5.2</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><p class="manual-para">सभी आईएमएस दस्तावेज़ ट्रेसेबिलिटी और आसान पुनर्प्राप्ति सुनिश्चित करने के लिए एक संरचित कोडिंग सम्मेलन का पालन करते हैं।</p><div class="ncr-block"><div class="ncr-block-lbl">प्रारूप: YPP_[श्रेणी]-[क्षेत्र]-[धारावाहिक]</div><p class="manual-para" style="margin:8px 0"><strong>उपसर्ग:</strong> वाईपीपी = यश पॉली प्लास्ट (कंपनी उपसर्ग)</p></div><div class="tbl-wrap"><table><thead><tr><th scope="col" style="width:80px">कोड</th><th scope="col">श्रेणी</th><th scope="col" style="width:140px">उदाहरण</th></tr></thead><tbody><tr><td class="mono"><strong>क्यूएमपी</strong></td><td>आईएमएस मैनुअल (शीर्ष दस्तावेज़)</td><td class="mono doc-ref">YPP_QMP-001</td></tr><tr><td class="mono"><strong>एसओपी</strong></td><td>मानक संचालन प्रक्रिया</td><td class="mono doc-ref">YPP_SOP-PRD-001</td></tr><tr><td class="mono"><strong>WI</strong></td><td>कार्य निर्देश</td><td class="mono doc-ref">YPP_WI_PRD-01</td></tr><tr><td class="mono"><strong>एफआरएम</strong></td><td>प्रपत्र/निरीक्षण रिकार्ड</td><td class="mono doc-ref">YPP_FRM-CAL-01</td></tr><tr><td class="mono"><strong>रेग</strong></td><td>रजिस्टर/लॉग</td><td class="mono doc-ref">YPP_REG-CAL-01</td></tr><tr><td class="mono"><strong>एलएसटी</strong></td><td>सूची/मास्टर सूची</td><td class="mono doc-ref">YPP_LST_SPA-01</td></tr><tr><td class="mono"><strong>पीएलएन</strong></td><td>योजना/कार्यक्रम</td><td class="mono doc-ref">YPP_PLN-ENV-01</td></tr><tr><td class="mono"><strong>पीओएल</strong></td><td>पॉलिसी दस्तावेज़</td><td class="mono doc-ref">YPP_QP-9001-001</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-9">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">9</div>
+<span class="sec-title">दस्तावेज़ों का वितरण एवं नियंत्रण</span>
+<span class="sec-tag">आईएसओ 9001:2015 §7.5.3</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><p class="manual-para">यह मैनुअल एक नियंत्रित दस्तावेज़ है. वितरण, पहुंच और अप्रचलन को निम्नानुसार प्रबंधित किया जाता है:</p><div class="principles-grid"><div class="principle-card"><div class="principle-title">नियंत्रित प्रतिलिपियाँ</div><p class="principle-text">प्रबंधन प्रतिनिधि द्वारा कंपनी क्यूएमएस प्लेटफॉर्म पर मास्टर कॉपी को इलेक्ट्रॉनिक रूप से बनाए रखा जाता है। अनुमोदन के तुरंत बाद सभी संशोधन पिछले संस्करणों का स्थान ले लेते हैं।</p></div><div class="principle-card"><div class="principle-title">प्रवेश</div><p class="principle-text">सभी कर्मचारियों के पास क्यूएमएस प्लेटफॉर्म या एमआर द्वारा जारी मुद्रित प्रतियों के माध्यम से वर्तमान संस्करण तक पहुंच है। बाहरी पक्ष (लेखा परीक्षक, ग्राहक, नियामक निकाय) निदेशक के अनुमोदन पर केवल पढ़ने योग्य प्रतियों तक पहुंच सकते हैं।</p></div><div class="principle-card"><div class="principle-title">अनियंत्रित प्रतिलिपियाँ</div><p class="principle-text">नियंत्रित प्रतिलिपि स्टाम्प के बिना मुद्रित प्रतियाँ अनियंत्रित होती हैं। उपयोगकर्ता यह सत्यापित करने के लिए ज़िम्मेदार हैं कि वे वर्तमान संशोधन का उपयोग कर रहे हैं।</p></div><div class="principle-card"><div class="principle-title">अप्रचलित दस्तावेज़</div><p class="principle-text">प्रतिस्थापित संस्करणों को अप्रचलित वॉटरमार्क के साथ इलेक्ट्रॉनिक रूप से संग्रहीत किया जाता है। अनपेक्षित उपयोग को रोकने के लिए भौतिक अप्रचलित प्रतियों को वापस ले लिया जाता है और नष्ट कर दिया जाता है।</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-10">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">10</div>
+<span class="sec-title">संशोधन एवं परिवर्तन प्रबंधन</span>
+<span class="sec-tag">आईएसओ 9001:2015 §7.5</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><p class="manual-para">इस मैनुअल में सभी परिवर्तनों को जारी करने से पहले समीक्षा और अनुमोदन की आवश्यकता होती है।</p></div>
+</div>
+</div>
+<div class="section" id="sec-11">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">11</div>
+<span class="sec-title">दस्तावेज़ पदानुक्रम</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="tbl-wrap"><table><thead><tr><th scope="col" style="width:120px">स्तर</th><th scope="col">विवरण</th><th scope="col" style="width:200px">उदाहरण</th></tr></thead><tbody><tr><td><strong>स्तर 1 - आईएमएस मैनुअल</strong></td><td>इस दस्तावेज़। सभी चार मानकों के लिए कार्यक्षेत्र, नीति, उद्देश्यों की रूपरेखा और खंड-दर-खंड आईएमएस अनुरूपता को परिभाषित करता है।</td><td class="doc-ref">YPP_QMP-001</td></tr><tr><td><strong>स्तर 2 - मानक संचालन प्रक्रियाएँ</strong></td><td>प्रक्रिया-स्तरीय प्रक्रियाएं यह परिभाषित करती हैं कि प्रत्येक आईएमएस प्रक्रिया को कैसे प्रबंधित किया जाता है, कौन जिम्मेदार है, और कौन से रिकॉर्ड बनाए रखे जाते हैं।</td><td class="doc-ref">YPP_SOP-PRD-001, YPP_SOP-OHS-001, YPP_SOP-ENV-001, YPP_SOP-CAL-001 आदि</td></tr><tr><td><strong>स्तर 3 - कार्य निर्देश</strong></td><td>दुकान के फर्श पर विशिष्ट कार्यों और गतिविधियों के लिए चरण-दर-चरण ऑपरेटर-स्तरीय निर्देश।</td><td class="doc-ref">YPP_WI_PRD-01 से YPP_WI_PRD-07, YPP_WI_IQC-01</td></tr><tr><td><strong>लेवल 4 - फॉर्म, रिकॉर्ड और रजिस्टर</strong></td><td>निरीक्षण डेटा, ऑडिट निष्कर्ष, प्रशिक्षण रिकॉर्ड और आईएमएस ऑपरेशन के अन्य वस्तुनिष्ठ साक्ष्य को पकड़ने के लिए खाली फॉर्म का उपयोग किया जाता है।</td><td class="doc-ref">YPP_FRM-CAL-01, YPP_FRM-NC-01, YPP_REG-CAL-01, YPP_REG-TRN-01 आदि</td></tr></tbody></table></div>
+</div>
+</div>
+<div class="section" id="sec-12">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">12</div>
+<span class="sec-title">1.0 इस मैनुअल के बारे में</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">1.1</span><span class="manual-subsec-title">उद्देश्य और अधिकार</span></div><p class="manual-para">यह आईएमएस मैनुअल यश पॉली प्लास्ट इंटीग्रेटेड मैनेजमेंट सिस्टम का शीर्ष दस्तावेज है। यह संपूर्ण सुविधा में गुणवत्ता, पर्यावरण, ओएच एंड एस और ऊर्जा प्रबंधन के लिए रूपरेखा स्थापित करता है।</p><ul class="manual-list"><li>संगठनात्मक संदर्भ, नेतृत्व प्रतिबद्धता और आईएमएस दायरे को परिभाषित करता है</li><li>सभी चार आईएसओ मानकों के लिए खंड-दर-खंड अनुरूपता निर्धारित करता है</li><li>सभी एसओपी, कार्य निर्देश, फॉर्म और रजिस्टर इस मैनुअल से अपना अधिकार प्राप्त करते हैं</li><li>सभी कर्मचारियों को इस ढांचे को समझना और इसके भीतर काम करना आवश्यक है</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">1.2</span><span class="manual-subsec-title">दस्तावेज़ नियंत्रण</span></div><p class="manual-para">यह मैनुअल एक नियंत्रित दस्तावेज़ है. मास्टर कॉपी को प्रबंधन प्रतिनिधि (पीएल प्रधान) द्वारा इलेक्ट्रॉनिक रूप से बनाए रखा जाता है। मुद्रित प्रतियाँ तब तक अनियंत्रित होती हैं जब तक कि नियंत्रित प्रति पर मोहर न लगी हो।</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-13">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">13</div>
+<span class="sec-title">4.0 संगठन का संदर्भ</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">4.1</span><span class="manual-subsec-title">आंतरिक और बाहरी मुद्दे</span></div><p class="manual-para">यश पॉली प्लास्ट ने अपने उद्देश्य और रणनीतिक दिशा से संबंधित मुद्दों को व्यवस्थित रूप से निर्धारित किया है।</p><ul class="manual-list"><li>आंतरिक: उत्पादन क्षमता, कार्यबल क्षमता, मशीन विश्वसनीयता, ऊर्जा दक्षता, वित्तीय संसाधन</li><li>बाहरी: ग्राहकों की अपेक्षाएं (अरेबियन पेट्रोलियम, अपार इंडस्ट्रीज, एक्सान इंडस्ट्रीज), कच्चे माल की कीमत में अस्थिरता</li><li>बाहरी: फ़ैक्टरी अधिनियम और पर्यावरण संरक्षण अधिनियम के तहत नियामक आवश्यकताएँ</li><li>बाहरी: प्रतिस्पर्धी परिदृश्य, सामुदायिक दायित्व और पर्यावरणीय संदर्भ</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">4.2</span><span class="manual-subsec-title">इच्छुक पार्टियाँ</span></div><p class="manual-para">प्रत्येक प्रबंधन समीक्षा बैठक में निम्नलिखित इच्छुक पार्टियों और उनकी आवश्यकताओं का दस्तावेजीकरण और समीक्षा की जाती है:</p><ul class="manual-list"><li>ग्राहक - उत्पाद की गुणवत्ता, समय पर डिलीवरी, पता लगाने की क्षमता</li><li>कर्मचारी - सुरक्षित कार्य परिस्थितियाँ, योग्यता, उचित व्यवहार</li><li>विनियामक निकाय - फ़ैक्टरी अधिनियम, ईपीए, बीआईएस मानकों का अनुपालन</li><li>आपूर्तिकर्ता - स्पष्ट विनिर्देश, समय पर भुगतान, दीर्घकालिक साझेदारी</li><li>स्थानीय समुदाय - न्यूनतम पर्यावरणीय प्रभाव, शोर और अपशिष्ट</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">4.3</span><span class="manual-subsec-title">आईएमएस का दायरा</span></div><p class="manual-para">आईएमएस के दायरे में शामिल हैं: ब्लो मोल्डिंग, इंजेक्शन मोल्डिंग, कच्चे माल का भंडारण, गुणवत्ता नियंत्रण, रखरखाव, भंडारण और नवी मुंबई सुविधा में प्रेषण। खंड 8.3 (डिज़ाइन और विकास) को बाहर रखा गया है क्योंकि उत्पाद ग्राहक-निर्दिष्ट डिज़ाइन के अनुसार निर्मित होते हैं।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">4.4</span><span class="manual-subsec-title">आईएमएस प्रक्रियाएं</span></div><p class="manual-para">प्रोसेस इंटरेक्शन को प्रोसेस इंटरेक्शन मैट्रिक्स में मैप किया जाता है। प्रत्येक प्रक्रिया में एक परिभाषित स्वामी, इनपुट, आउटपुट, KPI और संबंधित दस्तावेजी जानकारी होती है। इस मैनुअल में प्रक्रिया सूची देखें।</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-14">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">14</div>
+<span class="sec-title">5.0 नेतृत्व</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">5.1</span><span class="manual-subsec-title">शीर्ष प्रबंधन प्रतिबद्धता</span></div><p class="manual-para">निदेशक (तरुण मिश्रा) आईएमएस के लिए दृश्यमान शीर्ष-स्तरीय नेतृत्व और अंतिम जवाबदेही प्रदान करते हैं। नेतृत्व की जिम्मेदारियों में शामिल हैं:</p><ul class="manual-list"><li>सभी कर्मचारियों के लिए आईएमएस नीतियों की स्थापना और संचार करना</li><li>व्यावसायिक प्रक्रियाओं में आईएमएस आवश्यकताओं का एकीकरण सुनिश्चित करना</li><li>गुणवत्ता, सुरक्षा और पर्यावरणीय जिम्मेदारी की संस्कृति को बढ़ावा देना</li><li>आईएमएस संचालन एवं सुधार हेतु संसाधनों की उपलब्धता सुनिश्चित करना</li><li>निरंतर सुधार लाना और आईएमएस कार्य परिणामों की समीक्षा करना</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">5.2</span><span class="manual-subsec-title">आईएमएस नीतियां</span></div><p class="manual-para">चार एकीकृत नीतियां आईएमएस को नियंत्रित करती हैं, सभी को निदेशक द्वारा अनुमोदित किया गया है और प्रेरण प्रशिक्षण, नोटिस बोर्ड और टूलबॉक्स वार्ता के माध्यम से सूचित किया गया है:</p><ul class="manual-list"><li>गुणवत्ता नीति (YPP_QP-9001-001) — ISO 9001:2015</li><li>पर्यावरण नीति (YPP_EMP-POL-001) — ISO 14001:2015</li><li>OH&amp;S नीति (YPP_OHS-POL-001) — ISO 45001:2018</li><li>ऊर्जा नीति (YPP_ENP-POL-001) — ISO 50001:2018</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">5.3</span><span class="manual-subsec-title">भूमिकाएँ, जिम्मेदारियाँ और प्राधिकारी</span></div><p class="manual-para">प्रबंधन प्रतिनिधि (पीएल प्रधान) को औपचारिक रूप से निदेशक द्वारा नियुक्त किया जाता है। प्रमुख आईएमएस भूमिकाएं और उनकी जिम्मेदारियां व्यक्तिगत एसओपी और क्षमता और प्रशिक्षण प्रक्रिया (YPP_SOP-COM-001) में परिभाषित की गई हैं। संगठनात्मक चार्ट अनुबंध IV में दिया गया है।</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-15">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">15</div>
+<span class="sec-title">6.0 योजना</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">6.1</span><span class="manual-subsec-title">जोखिम और अवसर</span></div><p class="manual-para">योजना सभी चार प्रबंधन प्रणालियों में जोखिमों और अवसरों का समाधान करती है:</p><ul class="manual-list"><li>ओएच एंड एस जोखिम: खतरे की पहचान और जोखिम मूल्यांकन - YPP_SOP-OHS-001</li><li>पर्यावरणीय जोखिम: पहलू और प्रभाव मूल्यांकन - YPP_SOP-ENV-001</li><li>गुणवत्ता जोखिम: जोखिम-आधारित सोच रजिस्टर - YPP_SOP-RBI-001</li><li>कानूनी अनुपालन: कानूनी रजिस्टर - YPP_REG-LGL-01, YPP_REG-LGL-OHS-01</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">6.2</span><span class="manual-subsec-title">आईएमएस उद्देश्य और योजना</span></div><p class="manual-para">गुणवत्ता, सुरक्षा, पर्यावरण और ऊर्जा को कवर करते हुए प्रत्येक मानक के लिए आईएमएस उद्देश्य स्थापित किए जाते हैं। उद्देश्य स्मार्ट (विशिष्ट, मापने योग्य, प्राप्त करने योग्य, प्रासंगिक, समयबद्ध) हैं। YPP_REG-OBJ-01 के माध्यम से ट्रैक किया गया और प्रबंधन समीक्षा बैठकों में समीक्षा की गई। इस मैनुअल में उद्देश्य तालिका देखें।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">6.3</span><span class="manual-subsec-title">ऊर्जा योजना</span></div><p class="manual-para">ऊर्जा समीक्षा महत्वपूर्ण ऊर्जा उपयोग (एसईयू), ऊर्जा कार्य परिणाम आधार रेखा और ऊर्जा कार्य परिणाम संकेतक (एनपीआई) की पहचान करती है। ऊर्जा योजना को YPP_SOP-SEU-001 में प्रलेखित किया गया है और YPP_REG-ENM-01 के माध्यम से ट्रैक किया गया है।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">6.4</span><span class="manual-subsec-title">बदलाव की योजना</span></div><p class="manual-para">आईएमएस में नियोजित परिवर्तनों का मूल्यांकन इस मैनुअल और YPP_SOP-DC-001 में वर्णित परिवर्तन प्रबंधन प्रक्रिया के अनुसार करने से पहले जोखिम और अवसर के लिए किया जाता है।</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-16">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">16</div>
+<span class="sec-title">7.0 समर्थन</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.1</span><span class="manual-subsec-title">संसाधन</span></div><p class="manual-para">संगठन आईएमएस संचालन के लिए लोगों, बुनियादी ढांचे, कार्य वातावरण, निगरानी और माप उपकरण और संगठनात्मक ज्ञान सहित पर्याप्त संसाधन सुनिश्चित करता है। बुनियादी ढांचे और कार्य वातावरण को YPP_SOP-MTN-001 और YPP_SOP-HK-001 के अनुसार बनाए रखा जाता है।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.2</span><span class="manual-subsec-title">योग्यता और प्रशिक्षण</span></div><p class="manual-para">आईएमएस के कार्य परिणामों को प्रभावित करने वाले कार्य करने वाले कर्मचारियों को शिक्षा, प्रशिक्षण या अनुभव के आधार पर सक्षम होना आवश्यक है।</p><ul class="manual-list"><li>योग्यता आवश्यकताओं और प्रशिक्षण आवश्यकताओं का विश्लेषण - YPP_SOP-COM-001</li><li>प्रशिक्षण रिकॉर्ड - YPP_REG-TRN-01</li><li>में बनाए रखा गया प्रत्येक प्रशिक्षण कार्यक्रम के बाद प्रशिक्षण प्रभावशीलता का मूल्यांकन किया गया</li><li>नए कर्मचारी आईएमएस की नियुक्ति ज्वाइनिंग के 30 दिनों के भीतर पूरी हो गई</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.3</span><span class="manual-subsec-title">जागरूकता</span></div><p class="manual-para">सभी कर्मचारियों को आईएमएस नीतियों, आईएमएस उद्देश्यों में उनके योगदान और आईएमएस आवश्यकताओं के अनुरूप न होने के परिणामों से अवगत कराया जाता है। टूलबॉक्स वार्ता, प्रेरण प्रशिक्षण और नोटिस बोर्ड के माध्यम से जागरूकता को सुदृढ़ किया जाता है।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.4</span><span class="manual-subsec-title">निगरानी, ​​मापन एवं अंशांकन</span></div><p class="manual-para">माप उपकरण की पहचान, अंशांकन और रखरखाव YPP_SOP-CAL-001 के अनुसार किया जाता है। अंशांकन रिकॉर्ड YPP_REG-CAL-01 में बनाए रखा जाता है। अंशांकन से बाहर पाए गए उपकरण को अलग कर दिया गया है और वैधता के लिए पिछले परिणामों का मूल्यांकन किया गया है।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">7.5</span><span class="manual-subsec-title">प्रलेखित जानकारी</span></div><p class="manual-para">दस्तावेज़ और रिकॉर्ड नियंत्रण YPP_SOP-DC-001 का अनुसरण करता है। दस्तावेज़ मास्टर सूची का रखरखाव एमआर द्वारा किया जाता है। जारी करने से पहले दस्तावेज़ों की समीक्षा और अनुमोदन किया जाता है, और परिवर्तन होने पर अद्यतन किया जाता है।</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-17">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">17</div>
+<span class="sec-title">8.0 ऑपरेशन</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.1</span><span class="manual-subsec-title">उत्पादन नियंत्रण</span></div><p class="manual-para">ब्लो मोल्डिंग और इंजेक्शन मोल्डिंग संचालन को दस्तावेजित कार्य निर्देशों और एसओपी के माध्यम से नियंत्रित किया जाता है:</p><ul class="manual-list"><li>उत्पादन एसओपी - YPP_SOP-PRD-001</li><li>कार्य निर्देश - YPP_WI_PRD-01 से YPP_WI_PRD-07</li><li>प्रक्रियाधीन गुणवत्ता नियंत्रण - YPP_SOP-IPC-001</li><li>अंतिम गुणवत्ता नियंत्रण - YPP_SOP-FQC-001</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.2</span><span class="manual-subsec-title">क्रय और आपूर्तिकर्ता नियंत्रण</span></div><p class="manual-para">आपूर्तिकर्ता मूल्यांकन, चयन और कार्य परिणाम की निगरानी YPP_SOP-PUR-001 और YPP_SOP-SUP-001 द्वारा नियंत्रित होती है। आने वाली सामग्रियों का YPP_WI_IQC-01 के अनुसार निरीक्षण किया जाता है और परिणाम YPP_REG_IQC-01 में दर्ज किए जाते हैं।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.3</span><span class="manual-subsec-title">रासायनिक और खतरनाक सामग्री प्रबंधन</span></div><p class="manual-para">YPP_SOP-CHM-001 और संबंधित सुरक्षा डेटा शीट (एसडीएस) के अनुसार खतरनाक रसायनों और पदार्थों की पहचान, भंडारण और प्रबंधन किया जाता है। आपातकालीन स्पिल प्रतिक्रिया YPP_SOP-ENV-003 में शामिल है।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.4</span><span class="manual-subsec-title">OH&amp;S परिचालन नियंत्रण</span></div><p class="manual-para">सभी पहचाने गए महत्वपूर्ण खतरों के लिए OH&amp;S नियंत्रण स्थापित किए गए हैं:</p><ul class="manual-list"><li>आपातकालीन तैयारी और प्रतिक्रिया - YPP_SOP-OHS-002</li><li>अग्नि सुरक्षा और निकासी - YPP_SOP-OHS-003</li><li>गैर-नियमित गतिविधियों के लिए काम करने की अनुमति - YPP_SOP-OHS-004</li><li>व्यक्तिगत सुरक्षा उपकरण आवश्यकताएँ - प्रत्येक WI और SOP में परिभाषित</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.5</span><span class="manual-subsec-title">पर्यावरणीय परिचालन नियंत्रण</span></div><p class="manual-para">महत्वपूर्ण पर्यावरणीय पहलुओं पर नियंत्रण निम्नलिखित के माध्यम से किया जाता है:</p><ul class="manual-list"><li>अपशिष्ट को छांटना और फेंकना — YPP_SOP-WM-001</li><li>पर्यावरणीय आपातकालीन प्रतिक्रिया - YPP_SOP-ENV-003</li><li>हाउसकीपिंग और स्पिल रोकथाम - YPP_SOP-HK-001</li><li>पर्यावरण प्रबंधन कार्यक्रम - YPP_SOP-EMP-001</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">8.6</span><span class="manual-subsec-title">ऊर्जा परिचालन नियंत्रण</span></div><p class="manual-para">महत्वपूर्ण ऊर्जा उपयोग (एसईयू) के लिए परिचालन नियंत्रण YPP_SOP-SEU-001 में परिभाषित किए गए हैं। ऊर्जा डेटा मासिक रूप से एकत्र किया जाता है और YPP_REG-ENM-01 में ट्रैक किया जाता है। मशीन ऑपरेटरों को ऊर्जा-कुशल संचालन प्रथाओं पर प्रशिक्षित किया जाता है।</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-18">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">18</div>
+<span class="sec-title">9.0 कार्य परिणाम मूल्यांकन</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">9.1</span><span class="manual-subsec-title">निगरानी और माप</span></div><p class="manual-para">प्रमुख प्रक्रियाओं की निगरानी स्थापित KPI के विरुद्ध की जाती है। कार्य परिणाम डेटा नियमित रूप से एकत्र और समीक्षा किया जाता है:</p><ul class="manual-list"><li>गुणवत्ता KPI: ग्राहक शिकायत दर, अस्वीकृति दर, समय पर डिलीवरी</li><li>पर्यावरणीय KPI: लैंडफिल तक अपशिष्ट (किलो/माह), ऊर्जा खपत (kWh/टन)</li><li>ओएच एंड एस केपीआई: खोए हुए समय की चोटें (एलटीआई), निकट-चूक आवृत्ति, प्राथमिक चिकित्सा मामले</li><li>ऊर्जा KPI: EnPI (उत्पादन का प्रति टन kWh), SEU खपत रुझान</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">9.2</span><span class="manual-subsec-title">आंतरिक लेखापरीक्षा</span></div><p class="manual-para">एक व्यापक आंतरिक लेखापरीक्षा कार्यक्रम (YPP_SOP-IA-001) प्रति लेखापरीक्षा चक्र में कम से कम एक बार सभी चार मानकों में सभी आईएमएस खंडों को शामिल करता है। ऑडिट निष्कर्षों को वर्गीकृत किया जाता है, प्रक्रिया मालिकों को सूचित किया जाता है, और समापन तक ट्रैक किया जाता है। लेखापरीक्षक की स्वतंत्रता कायम रखी जाती है - लेखापरीक्षक अपने काम का ऑडिट नहीं करते हैं।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">9.3</span><span class="manual-subsec-title">ग्राहक संतुष्टि</span></div><p class="manual-para">ग्राहक प्रतिक्रिया YPP_SOP-CCF-001 के अनुसार एकत्र और विश्लेषण की जाती है। प्रबंधन समीक्षा बैठकों में शिकायत के रुझान, समाधान समय और ग्राहक संतुष्टि स्कोर की समीक्षा की जाती है।</p></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">9.4</span><span class="manual-subsec-title">प्रबंधन समीक्षा</span></div><p class="manual-para">निदेशक कम से कम वार्षिक रूप से प्रबंधन समीक्षा बैठक (YPP_SOP-MR-001) की अध्यक्षता करते हैं। समीक्षा इनपुट में शामिल हैं:</p><ul class="manual-list"><li>आंतरिक लेखापरीक्षा परिणाम और सीएपीए स्थिति</li><li>KPI कार्य परिणाम बनाम उद्देश्य</li><li>ग्राहक प्रतिक्रिया और शिकायत रुझान</li><li>कानूनी अनुपालन स्थिति</li><li>ऊर्जा कार्य परिणामों की समीक्षा और EnPI रुझान</li><li>संसाधन पर्याप्तता और सुधार के अवसर</li></ul></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-19">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">19</div>
+<span class="sec-title">10.0 सुधार</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="manual-clause"><div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">10.1</span><span class="manual-subsec-title">गैर-अनुरूपता और सुधारात्मक कार्रवाई</span></div><p class="manual-para">सभी गैर-अनुरूपताएं - उत्पाद दोष, प्रक्रिया विचलन, ओएच एंड एस घटनाएं, पर्यावरणीय घटनाएं और ऑडिट निष्कर्ष - सीएपीए प्रणाली के माध्यम से प्रबंधित किए जाते हैं:</p><ul class="manual-list"><li>एनसीआर फॉर्म - YPP_FRM-NC-01</li><li>पर गैर-अनुरूपता का दस्तावेजीकरण करें तात्कालिक मुद्दे को सम्‍मिलित करें और ठीक करें</li><li>मूल कारण विश्लेषण करें (5-क्यों, फिशबोन, आदि)</li><li>सुधारात्मक कार्रवाई करें और प्रभावशीलता की पुष्टि करें</li><li>बंद करने के लिए YPP_REG-NC-01 में सभी CAPA को ट्रैक करें</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">10.2</span><span class="manual-subsec-title">निवारक कार्रवाई और सुधार</span></div><p class="manual-para">सुधार के अवसरों को सक्रिय रूप से पहचाना जाता है:</p><ul class="manual-list"><li>HIRA, EAI और जोखिम-आधारित सोच समीक्षाओं में पहचाने गए जोखिम</li><li>समीक्षा बैठक के परिणाम और कर्मचारी सुझाव</li><li>आंतरिक लेखापरीक्षा टिप्पणियाँ (सुधार के अवसर)</li><li>ग्राहक प्रतिक्रिया, बेंचमार्किंग, और ऊर्जा समीक्षाएँ</li><li>जांच निष्कर्ष लगभग चूक गए</li></ul></div>
+<div class="manual-subsec"><div class="manual-subsec-hdr"><span class="manual-clause-num">10.3</span><span class="manual-subsec-title">सतत सुधार प्रतिबद्धता</span></div><p class="manual-para">यश पॉली प्लास्ट आईएमएस प्रभावशीलता, दक्षता और समग्र कार्य परिणामों में निरंतर सुधार के लिए प्रतिबद्ध है। प्रत्येक प्रबंधन समीक्षा बैठक में सुधार कार्यों को ट्रैक किया जाता है, संसाधन किया जाता है और समीक्षा की जाती है ताकि यह सुनिश्चित किया जा सके कि वे अपेक्षित परिणाम दे सकें।</p></div></div></div>
+</div>
+</div>
+<div class="section" id="sec-20">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">20</div>
+<span class="sec-title">गुणवत्ता उद्देश्य</span>
+<span class="sec-tag">आईएसओ 9001:2015 §6.2</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">उद्देश्य</th><th scope="col">लक्ष्य</th><th scope="col">उपाय</th><th scope="col" style="width:110px">जिम्मेदार</th><th scope="col" style="width:100px">समय सीमा</th></tr></thead><tbody><tr><td><strong>प्रति 100 ऑर्डर पर ग्राहक शिकायत दर 2 से कम बनाए रखें</strong></td><td>&lt;2%</td><td>प्रति 100 प्रेषण आदेशों पर शिकायतों की संख्या</td><td class="mono">पीएल प्रधान</td><td class="mono">त्रैमासिक</td></tr><tr><td><strong>समय पर डिलीवरी दर प्राप्त करें ≥ 95%</strong></td><td>≥ 95%</td><td>समय पर डिलीवरी / कुल डिलीवरी</td><td class="mono">प्रोडक्शन मैनेजर</td><td class="mono">मासिक</td></tr><tr><td><strong>आने वाली सामग्री अस्वीकृति दर को कम करके &lt;3%</strong></td><td>करें &lt;3%</td><td>अस्वीकृत लॉट/कुल प्राप्त लॉट</td><td class="mono">पीएल प्रधान</td><td class="mono">मासिक</td></tr><tr><td><strong>प्रति वर्ष शून्य खोई हुई समय चोटें (एलटीआई) प्राप्त करें</strong></td><td>0 एलटीआई</td><td>एलटीआई गिनती</td><td class="mono">सुरक्षा अधिकारी</td><td class="mono">वार्षिक</td></tr><tr><td><strong>लैंडफिल में ठोस अपशिष्ट को बेसलाइन की तुलना में 15% तक कम करें</strong></td><td>15% की कमी</td><td>लैंडफिल तक किलोग्राम कचरा/माह</td><td class="mono">ईएचएस अधिकारी</td><td class="mono">वार्षिक</td></tr><tr><td><strong>प्रति टन उत्पादन में ऊर्जा खपत को 10% कम करें</strong></td><td>EnPI में 10% की कमी</td><td>तैयार उत्पाद का प्रति टन kWh</td><td class="mono">रखरखाव प्रबंधक</td><td class="mono">वार्षिक</td></tr><tr><td><strong>नियोजित आंतरिक ऑडिट को 100% समय पर पूरा करें</strong></td><td>100%</td><td>ऑडिट पूरा हो गया / ऑडिट की योजना बनाई गई</td><td class="mono">पीएल प्रधान</td><td class="mono">वार्षिक</td></tr><tr><td><strong>निर्धारित लक्ष्य तिथियों के भीतर सभी CAPA आइटम बंद करें</strong></td><td>100% समय पर समापन</td><td>सीएपीए समय पर बंद हुए / कुल सीएपीए जुटाए गए</td><td class="mono">पीएल प्रधान</td><td class="mono">त्रैमासिक</td></tr><tr><td><strong>लागू कानूनी आवश्यकताओं का 100% अनुपालन बनाए रखें</strong></td><td>0 कानूनी गैर-अनुपालन</td><td>कानूनी अनुपालन ऑडिट स्कोर</td><td class="mono">पीएल प्रधान</td><td class="mono">वार्षिक</td></tr><tr><td><strong>शामिल होने के 30 दिनों के भीतर सभी नए कर्मचारियों को आईएमएस जागरूकता पर प्रशिक्षित करें</strong></td><td>30 दिनों के भीतर 100%</td><td>कर्मचारियों को समय पर प्रशिक्षित किया गया / नए ज्वाइनर्स</td><td class="mono">एचआर/एमआर</td><td class="mono">जारी</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-21">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">21</div>
+<span class="sec-title">अनुलग्नक I - लागू मानक और खंड</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">मानक</th><th scope="col">शीर्षक</th><th scope="col">आवेदन का दायरा</th></tr></thead><tbody><tr><td>ISO 9001:2015</td><td>गुणवत्ता प्रबंधन प्रणालियाँ - आवश्यकताएँ</td><td>पूर्ण (सीएल. 8.3 डिज़ाइन को छोड़कर)</td></tr><tr><td>ISO 14001:2015</td><td>पर्यावरण प्रबंधन प्रणालियाँ - आवश्यकताएँ</td><td>पूर्ण</td></tr><tr><td>ISO 45001:2018</td><td>ओएच एंड एस प्रबंधन प्रणाली - आवश्यकताएँ</td><td>पूर्ण</td></tr><tr><td>ISO 50001:2018</td><td>ऊर्जा प्रबंधन प्रणालियाँ - आवश्यकताएँ</td><td>पूर्ण</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-22">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">22</div>
+<span class="sec-title">अनुलग्नक II - आईएमएस दस्तावेज़ मास्टर सूची (सारांश)</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">स्तर</th><th scope="col">दस्तावेज़ प्रकार</th><th scope="col">उदाहरण कोड</th></tr></thead><tbody><tr><td>स्तर 1</td><td>आईएमएस मैनुअल</td><td>YPP_QMP-001</td></tr><tr><td>स्तर 2</td><td>मानक संचालन प्रक्रियाएँ</td><td>YPP_SOP-PRD-001 से YPP_SOP-DC-001</td></tr><tr><td>स्तर 3</td><td>कार्य निर्देश</td><td>YPP_WI_PRD-01 से YPP_WI_IQC-01</td></tr><tr><td>स्तर 4</td><td>फॉर्म और रजिस्टर</td><td>YPP_FRM-*, YPP_REG-*</td></tr><tr><td>नीति</td><td>पॉलिसी दस्तावेज़</td><td>YPP_QP-9001-001, YPP_EMP-POL-001, YPP_OHS-POL-001, YPP_ENP-POL-001</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-23">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">23</div>
+<span class="sec-title">अनुबंध III - प्रमुख ग्राहक और उत्पाद</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">ग्राहक</th><th scope="col">आपूर्ति किये गये उत्पाद</th><th scope="col">आवेदन</th></tr></thead><tbody><tr><td>अरेबियन पेट्रोलियम</td><td>एचडीपीई कैन (5एल, 10एल, 20एल)</td><td>औद्योगिक स्नेहक पैकेजिंग</td></tr><tr><td>अपार इंडस्ट्रीज</td><td>एचडीपीई बोतलें (1एल, 2एल)</td><td>ट्रांसफार्मर तेल और विशेष रसायन</td></tr><tr><td>एक्सान इंडस्ट्रीज</td><td>एचडीपीई कंटेनर</td><td>औद्योगिक रसायन पैकेजिंग</td></tr><tr><td>[अन्य ग्राहक]</td><td>एचडीपीई बोतलें और डिब्बे</td><td>[आदेश विनिर्देशों के अनुसार]</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-24">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">24</div>
+<span class="sec-title">अनुबंध IV - संगठनात्मक चार्ट - आईएमएस कार्य</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><p class="manual-para">निर्देशक: तरूण मिश्रा
+└─ प्रबंधन प्रतिनिधि: पीएल प्रधान (आईएमएस, गुणवत्ता, ईएचएस)
+   ├─ प्रोडक्शन मैनेजर (ब्लो मोल्डिंग, इंजेक्शन मोल्डिंग)
+   ├─ गुणवत्ता नियंत्रण (आईक्यूसी, आईपीसी, एफक्यूसी)
+   ├─ रखरखाव और अंशांकन
+   ├─ खरीद और भंडार
+   ├─ गोदाम एवं प्रेषण
+   └─ मानव संसाधन एवं प्रशासन</p></div>
+</div>
+</div>
+<div class="section" id="sec-25">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">25</div>
+<span class="sec-title">अनुलग्नक V - महत्वपूर्ण पर्यावरणीय पहलू</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">पहलू</th><th scope="col">पर्यावरणीय प्रभाव</th><th scope="col">नियंत्रण दस्तावेज़</th></tr></thead><tbody><tr><td>प्लास्टिक स्क्रैप / ट्रिम कचरा</td><td>ठोस अपशिष्ट, भूमि प्रदूषण</td><td>YPP_SOP-WM-001</td></tr><tr><td>ऊर्जा खपत (बिजली)</td><td>जीएचजी उत्सर्जन</td><td>YPP_SOP-SEU-001</td></tr><tr><td>रासायनिक भंडारण (स्नेहक, सॉल्वैंट्स)</td><td>मिट्टी/जल प्रदूषण</td><td>YPP_SOP-CHM-001</td></tr><tr><td>अपशिष्ट जल (ठंडा करना, सफाई करना)</td><td>जल प्रदूषण</td><td>जल निकासी नियंत्रण, कोई अनुपचारित निर्वहन नहीं</td></tr><tr><td>मशीनरी से शोर</td><td>ध्वनि प्रदूषण / श्रवण हानि</td><td>इंजीनियरिंग नियंत्रण + पीपीई (YPP_SOP-OHS-001)</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-26">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">26</div>
+<span class="sec-title">अनुलग्नक VI - संशोधन इतिहास</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="tbl-wrap"><table><thead><tr><th scope="col">रेव्ह.</th><th scope="col">तारीख</th><th scope="col">विवरण</th><th scope="col">द्वारा स्वीकृत</th></tr></thead><tbody><tr><td>1.0</td><td>2026-04-24</td><td>प्रारंभिक अंक - यश पॉली प्लास्ट के लिए एकीकृत प्रबंधन प्रणाली मैनुअल</td><td>तरूण मिश्रा</td></tr></tbody></table></div></div>
+</div>
+</div>
+<div class="section" id="sec-27">
+<div class="sec-hdr" onclick="secToggle(this)" style="cursor:pointer">
+<div class="sec-num">27</div>
+<span class="sec-title">अनुमोदन एवं हस्ताक्षर</span>
+<span class="sec-chevron">▾</span>
+</div>
+<div class="sec-collapse">
+<div class="sec-body"><div class="sig-grid"><div class="sig-card"><div class="sig-role">दस्तावेज़ लेखक</div><div class="sig-fields"><div><div class="sig-field-lbl">मुद्रित नाम</div><div class="sig-prefill">पीएल प्रधान</div></div><div><div class="sig-field-lbl">हस्ताक्षर</div><div class="sig-line"></div></div><div><div class="sig-field-lbl">नौकरी का शीर्षक</div><div class="sig-prefill">प्रबंधन प्रतिनिधि</div></div><div><div class="sig-field-lbl">तारीख</div><div class="sig-prefill">2026-04-24</div></div></div></div><div class="sig-card"><div class="sig-role">दस्तावेज़ अनुमोदनकर्ता</div><div class="sig-fields"><div><div class="sig-field-lbl">मुद्रित नाम</div><div class="sig-prefill">तरूण मिश्रा</div></div><div><div class="sig-field-lbl">हस्ताक्षर</div><div class="sig-line"></div></div><div><div class="sig-field-lbl">नौकरी का शीर्षक</div><div class="sig-prefill">निर्देशक</div></div><div><div class="sig-field-lbl">तारीख</div><div class="sig-prefill">2026-04-24</div></div></div></div></div></div>
+</div>
+</div>
+<div class="doc-footer">
+<span class="footer-ref">YPP_QMP-001·· v1.0·· आईएसओ 9001:2015 | आईएसओ 14001:2015 | आईएसओ 45001:2018 | आईएसओ 50001:2018</span>
+<span>⚠ मुद्रित होने पर अनियंत्रित · उपयोग से पहले वर्तमान संशोधन सत्यापित करें</span>
+<span>29 अप्रैल 2026 को उत्पन्न</span>
+</div>
+</div>
+<div class="wm"><div class="wm-inner"><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div><div class="wm-row"><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span><span class="wm-txt">गोपनीय</span></div></div></div>
+</div>
+<div id="bil-toolbar">
+  <button class="tb-btn tb-lang active" id="tbEN" onclick="switchLang('en')">English</button>
+  <button class="tb-btn tb-lang" id="tbHI" onclick="switchLang('hi')">हिंदी</button>
+  <span class="tb-sep"></span>
+  <button class="tb-btn tb-audio" id="tbAudio" onclick="tbPlayAudio()">&#128266; Audio</button>
+  <button class="tb-btn tb-audio" id="tbAudioStop" onclick="tbStopAudio()" style="display:none">&#9209; Stop</button>
+</div>
+<button id="bil-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#9650;</button>
+<script>
+(function(){
+  var _curLang='en';
+  var _readFromEl=null;
+  window.switchLang=function(lang){
+    _curLang=lang;
+    document.querySelectorAll('.lang-section').forEach(function(s){
+      s.classList.toggle('active',s.dataset.lang===lang);
+    });
+    document.body.classList.toggle('lang-hi',lang==='hi');
+    document.getElementById('tbEN').classList.toggle('active',lang==='en');
+    document.getElementById('tbHI').classList.toggle('active',lang==='hi');
+    window.speechSynthesis.cancel();
+    document.getElementById('tbAudio').textContent=lang==='hi'?'🔊 सुनēं':'🔊 Audio';
+  };
+  var _ttsTimer=null;
+  function tbAudioReset(){
+    if(_ttsTimer){clearInterval(_ttsTimer);_ttsTimer=null;}
+    var btn=document.getElementById('tbAudio'),stop=document.getElementById('tbAudioStop');
+    btn.style.display='';btn.classList.remove('speaking');stop.style.display='none';
+  }
+  window.tbPlayAudio=function(){
+    if(window.speechSynthesis.speaking){window.speechSynthesis.cancel();tbAudioReset();return;}
+    /* Priority: text selection > right-click pinned element > full active section */
+    var txt='';
+    var sel=window.getSelection?window.getSelection():null;
+    var selTxt=sel?sel.toString().trim():'';
+    if(selTxt.length>2){
+      txt=selTxt;
+    } else if(_readFromEl){
+      txt=_readFromEl.innerText||'';
+      _readFromEl=null;
+    } else {
+      var sec=document.querySelector('.lang-section.active');
+      txt=sec?(sec.innerText||''):'';
+    }
+    if(!txt.trim())return;
+    var u=new SpeechSynthesisUtterance(txt);
+    u.lang=_curLang==='hi'?'hi-IN':'en-IN';u.rate=0.92;u.pitch=1.0;
+    var btn=document.getElementById('tbAudio'),stop=document.getElementById('tbAudioStop');
+    btn.style.display='none';stop.style.display='';
+    btn.classList.add('speaking');
+    u.onend=u.onerror=function(){tbAudioReset();};
+    /* Chrome bug: speechSynthesis silently pauses on long text — resume every 10s */
+    _ttsTimer=setInterval(function(){
+      if(!window.speechSynthesis.speaking){tbAudioReset();return;}
+      window.speechSynthesis.pause();
+      window.speechSynthesis.resume();
+    },10000);
+    window.speechSynthesis.speak(u);
+  };
+  window.tbStopAudio=function(){window.speechSynthesis.cancel();tbAudioReset();};
+  /* Right-click / long-press any content element to pin start point */
+  var _ctx=(function(){
+    var m=document.createElement('div');
+    m.style.cssText='position:fixed;z-index:99999;background:#1A2332;color:#fff;border-radius:8px;padding:6px 0;box-shadow:0 4px 20px rgba(0,0,0,.5);display:none;min-width:170px;font-family:inherit;font-size:13px';
+    function row(id,label,lang){var d=document.createElement('div');d.id=id;d.style.cssText='padding:9px 16px;cursor:pointer';d.addEventListener('mouseenter',function(){this.style.background='rgba(45,139,139,.3)';});d.addEventListener('mouseleave',function(){this.style.background='';});d.textContent=label;d.addEventListener('click',function(){hide();_curLang=lang;tbPlayAudio();});return d;}
+    m.appendChild(row('ctxEN','🔊 Read from here','en'));
+    m.appendChild(row('ctxHI','🔊 यहाँ से सुनें','hi'));
+    document.body.appendChild(m);
+    function hide(){m.style.display='none';}
+    document.addEventListener('click',hide);
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')hide();});
+    return m;
+  })();
+  var _lpTimer=null;
+  function showCtx(el,x,y){
+    _readFromEl=el;
+    _ctx.style.left=Math.min(x,window.innerWidth-185)+'px';
+    _ctx.style.top=Math.min(y,window.innerHeight-90)+'px';
+    _ctx.style.display='block';
+  }
+  document.addEventListener('contextmenu',function(ev){
+    var el=ev.target.closest('.section,.tt-step-body,.sec-body,p,td,li');
+    if(!el)return;
+    ev.preventDefault();showCtx(el,ev.clientX,ev.clientY);
+  });
+  document.addEventListener('touchstart',function(ev){
+    var el=ev.target.closest('.section,.tt-step-body,.sec-body,p,td,li');
+    if(!el)return;
+    _lpTimer=setTimeout(function(){var t=ev.touches[0];showCtx(el,t.clientX,t.clientY);},600);
+  },{passive:true});
+  document.addEventListener('touchend',function(){clearTimeout(_lpTimer);});
+  document.addEventListener('touchmove',function(){clearTimeout(_lpTimer);});
+  window.addEventListener('scroll',function(){
+    var btn=document.getElementById('bil-top');
+    if(btn)btn.classList.toggle('visible',window.scrollY>300);
+  });
+})();
+</script>
+</body>
+</html>
